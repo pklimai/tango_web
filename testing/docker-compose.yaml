@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
 
-  db:
+  mysql:
     image: mariadb
     restart: always
     environment:
@@ -13,8 +13,32 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ./db/data:/var/lib/mysql
-      - ./db/init:/docker-entrypoint-initdb.d
+      - ./db/data/mysql:/var/lib/mysql
+      - ./db/init/mysql:/docker-entrypoint-initdb.d
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: user_pass
+      POSTGRES_DB: bmn_db
+    ports:
+      - 5432:5432
+    volumes:
+      - ./db/init/postgres:/docker-entrypoint-initdb.d
+      - ./db/data/postgres/data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user
+      PGADMIN_DEFAULT_PASSWORD: user_pass
+    volumes:
+      - ./db/data/pgadmin:/var/lib/pgadmin
+      - ./db/data/pgadmin/servers.json:/servers.json
+    ports:
+      - 8081:80
 
   adminer:
     image: adminer

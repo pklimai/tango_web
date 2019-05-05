@@ -13,6 +13,9 @@ flask-sqlacodegen = "*"
 flask-sqlalchemy = "*"
 pandas = "*"
 dash-daq = "*"
+psycopg2-binary = "*"
+flask-caching = "*"
+mypy-extensions = "*"
 
 [requires]
 python_version = "3.6"
