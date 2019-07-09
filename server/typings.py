@@ -5,4 +5,5 @@ import plotly.graph_objs as go
 from mypy_extensions import TypedDict
 
 ScatterPlots = List[go.Scatter]
-RunEntry = TypedDict('RunsList', {'label': str, 'value': int})
+Style = TypedDict('Style', {'display': str})
+DomainEntry = TypedDict('DomainEntry', {'label': str, 'value': int})

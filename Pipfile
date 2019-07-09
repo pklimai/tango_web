@@ -16,6 +16,7 @@ dash-daq = "*"
 psycopg2-binary = "*"
 flask-caching = "*"
 mypy-extensions = "*"
+dash-bootstrap-components = "*"
 
 [requires]
 python_version = "3.6"

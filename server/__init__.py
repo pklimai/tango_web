@@ -1,14 +1,19 @@
 import dash
+import dash_bootstrap_components as dbc
 from flask_caching import Cache
 from flask_sqlalchemy import SQLAlchemy
 
-__external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+from server.config import HDBPP_CONNECTION, BMN_CONNECTION
+
+__external_stylesheets = [
+    dbc.themes.BOOTSTRAP
+]
 
 app = dash.Dash(__name__, external_stylesheets=__external_stylesheets)
 
 app.server.config['SQLALCHEMY_BINDS'] = {
-    "hdbpp": "mysql+pymysql://user:user_pass@localhost/hdbpp",
-    "bmn": "postgresql://user:user_pass@localhost/bmn_db"
+    "hdbpp": HDBPP_CONNECTION,
+    "bmn": BMN_CONNECTION
 }
 app.server.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
