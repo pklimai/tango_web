@@ -6,6 +6,7 @@ from dash.dependencies import Input, Output, State
 from sqlalchemy import text
 
 from server import app, db
+from server.config import DEBUG, PORT, HOST
 from server.layout import layout
 from server.orm.hdbpp import AttConf
 from server.typings import DomainEntry, Style, ScatterPlots
@@ -156,4 +157,4 @@ def draw_group(
 
 
 if __name__ == '__main__':
-    app.run_server(debug=False, host='0.0.0.0')
+    app.run_server(debug=DEBUG, host=HOST, port=PORT)

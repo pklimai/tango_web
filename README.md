@@ -1,13 +1,5 @@
-
-## Develop
-1. Generate ORM from database
-    ```bash
-   flask-sqlacodegen --bind-key=hdbpp --flask mysql+pymysql://user:user_pass@localhost/hdbpp > ./server/orm/hdbpp.py
-   flask-sqlacodegen --bind-key=bmn --flask postgresql://user:user_pass@localhost/bmn_db > ./server/orm/bmn.py
-    ```
-
 ## Testing
-1. Dump last 1000 rows from database
+1. Dump last 1000 rows from database (this step is optional - test data is already prepared)
    ```bash
    ssh mipt@vm221-52.jinr.ru
    # mysql -u bmn -h "10.18.11.66" --port 3306 -p # show databases;
@@ -25,12 +17,18 @@
    ```
 2. Pull results from virtual machine
    ```bash
+   # run "ssh-copy-id mipt@vm221-52.jinr.ru" before
    cd testing
    ./pull_db.sh
    ```
 
-1. install [docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
-2. `sudo apt install docker-compose`
+1. Install [docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
+
+2. Install docker-compose
+    ```bash
+   sudo apt install docker-compose
+   ```
+   
 3. Initialize database environment
    ```bash
    cd testing
@@ -39,5 +37,30 @@
    sudo docker-compose up
    ```
 4. check admin page
-   - mysql: http://localhost:8080
-   - postgres: http://localhost:8081
+   - mysql: http://localhost:8080 (server = "mysql", user:password is user:user_pass)
+   - postgres: http://localhost:8081 (
+   use user:user_pass as email:password and then add database with address equal "postgres" and same user:password)
+   
+
+## Deploy
+This section describes how to run WebUI server in CentOS 7 by Docker container example.
+
+1. [Config file](server/config.py) should contain actual paths to databases 
+   (HDBPP_CONNECTION and BMN_CONNECTION variables). For testing one could use test databases from section above.
+2. Build CentOS docker container.
+    ```bash
+    docker build -t dash-centos testing/deploy/
+    ```
+3. Run builded container.
+    ```dash
+    docker run -it -v $PWD:/root/bmn-visualisation --net=host --rm dash-centos /root/bmn-visualisation/start.sh
+    ```
+4. Check [web ui](http://localhost:8050/). Test run is 7, 5158.
+
+## Develop
+1. Generate ORM from database
+    ```bash
+   flask-sqlacodegen --bind-key=hdbpp --flask mysql+pymysql://user:user_pass@localhost/hdbpp > ./server/orm/hdbpp.py
+   flask-sqlacodegen --bind-key=bmn --flask postgresql://user:user_pass@localhost/bmn_db > ./server/orm/bmn.py
+    ```
+
