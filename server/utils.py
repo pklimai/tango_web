@@ -30,12 +30,12 @@ def _get_attrs_for_type(data_type: str):
 
 
 @cache.memoize(timeout=CACHE_TIMEOUT_SEC)
-def _get_run_attrs(period: int, run: int) -> List[int]:
-    run_model = _get_run(period, run)
+def _get_attrs(start: datetime, end: datetime) -> List[int]:
     query: Iterable[AttConfDataType] = db.session.query(AttConfDataType)
     engine: Engine = db.get_engine(app.server, 'hdbpp')
 
-    def get_values(query_: Iterable[AttConfDataType], run_: Run) -> Iterable[int]:
+    def get_values(query_: Iterable[AttConfDataType],
+                   start_dt: datetime, end_dt: datetime) -> Iterable[int]:
         for data_type in query_:
 
             att_conf_ids = _get_attrs_for_type(data_type.data_type)
@@ -45,20 +45,26 @@ def _get_run_attrs(period: int, run: int) -> List[int]:
 
             table_name = 'att_' + data_type.data_type
             sql = """
-            SELECT DISTINCT att_conf_id
-            FROM {}
-            WHERE (data_time BETWEEN "{}" AND "{}") AND (att_conf_id IN ({}));
-            """.format(
+                SELECT DISTINCT att_conf_id
+                FROM {}
+                WHERE (data_time BETWEEN "{}" AND "{}") AND (att_conf_id IN ({}));
+                """.format(
                 table_name,
-                run_.start_datetime,
-                run_.end_datetime, ", ".join((str(i) for i in att_conf_ids)))
+                start_dt,
+                end_dt, ", ".join((str(i) for i in att_conf_ids)))
 
             values: List[int] = [v[0] for v in engine.execute(sql).fetchall()]
 
             for value in values:
                 yield int(value)
 
-    return list(get_values(query, run_model))
+    return list(get_values(query, start, end))
+
+
+@cache.memoize(timeout=CACHE_TIMEOUT_SEC)
+def _get_run_attrs(period: int, run: int) -> List[int]:
+    run_model = _get_run(period, run)
+    return _get_attrs(run_model.start_datetime, run_model.end_datetime)
 
 
 @cache.memoize(timeout=CACHE_TIMEOUT_SEC)
@@ -74,11 +80,10 @@ def _get_attrs_for_params(domain: str, family: str, member: str, name: str) -> L
 
 def get_values(
         att_conf_data_type_id: int, att_conf_id:
-        int, period: int, run: int) -> Dict[int, List[Tuple[datetime, int]]]:
+        int, start: datetime, end: datetime) -> Dict[int, List[Tuple[datetime, int]]]:
     engine: Engine = db.get_engine(app.server, 'hdbpp')
     data_type: AttConfDataType = db.session.query(
             AttConfDataType).filter(AttConfDataType.att_conf_data_type_id == att_conf_data_type_id).first()
-    run_model = _get_run(period, run)
     table_name = 'att_' + data_type.data_type
 
     if 'scalar' in data_type.data_type:
@@ -88,8 +93,8 @@ def get_values(
             WHERE (data_time BETWEEN "{}" AND "{}") AND att_conf_id = {};
         """.format(
             table_name,
-            run_model.start_datetime,
-            run_model.end_datetime, att_conf_id)
+            start,
+            end, att_conf_id)
         return {0: engine.execute(sql).fetchall()}
     elif 'array' in data_type.data_type:
         sql = """
@@ -98,8 +103,8 @@ def get_values(
                     WHERE (data_time BETWEEN "{}" AND "{}") AND att_conf_id = {};
                 """.format(
             table_name,
-            run_model.start_datetime,
-            run_model.end_datetime, att_conf_id)
+            start,
+            end, att_conf_id)
 
         data = engine.execute(sql).fetchall()
 
@@ -113,10 +118,9 @@ def get_values(
 
 
 @cache.memoize(timeout=CACHE_TIMEOUT_SEC)
-def initialize_domains(period: int, run: int) -> List[DomainEntry]:
+def initialize_domains(start: datetime, end: datetime) -> List[DomainEntry]:
     """Get all available domains from database."""
-    attrs = _get_run_attrs(period, run)
-    print("here")
+    attrs = _get_attrs(start, end)
     query = db.session.query(AttConf.domain) \
         .filter(text("att_conf_id in ({})".format(", ".join(str(v) for v in attrs)))).distinct()
     return [

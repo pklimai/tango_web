@@ -37,9 +37,8 @@
    sudo docker-compose up
    ```
 4. check admin page
-   - mysql: http://localhost:8080 (server = "mysql", user:password is user:user_pass)
-   - postgres: http://localhost:8081 (
-   use user:user_pass as email:password and then add database with address equal "postgres" and same user:password)
+   - mysql: http://localhost:8080 (type=MySQL, server = "mysql", user:password is user:user_pass;
+        type=PostgreSQL, server = "postgres", user:password is user:user_pass)
    
 
 ## Deploy
