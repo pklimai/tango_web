@@ -5,6 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 ipython = "*"
+pylint = "*"
 
 [packages]
 dash = "*"
@@ -20,4 +21,4 @@ dash-bootstrap-components = "*"
 ipython = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.6"
