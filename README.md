@@ -9,6 +9,13 @@ docker run --rm -it \
 bmn-visualization
 
 ```
+Example of [config_local.py](server/config_local.py):
+```python
+DEBUG=True
+
+HDBPP_CONNECTION = "mysql+pymysql://user:user_pass@192.168.0.12/hdbpp"
+BMN_CONNECTION = "postgresql://user:user_pass@192.168.0.12/bmn_db"
+```
 
 ## Testing
 1. Dump last 1000 rows from database (this step is optional - test data is already prepared)
