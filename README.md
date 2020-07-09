@@ -1,3 +1,15 @@
+## Run in docker
+```bash
+# build container
+docker build -t bmn-visualization .
+# run container
+docker run --rm -it \
+-v $PWD/server/config_local.py:/root/bmn-visualisation/server/config_local.py \
+-p 8050:8050 \
+bmn-visualization
+
+```
+
 ## Testing
 1. Dump last 1000 rows from database (this step is optional - test data is already prepared)
    ```bash
@@ -62,4 +74,3 @@ This section describes how to run WebUI server in CentOS 7 by Docker container e
    flask-sqlacodegen --bind-key=hdbpp --flask mysql+pymysql://user:user_pass@localhost/hdbpp > ./server/orm/hdbpp.py
    flask-sqlacodegen --bind-key=bmn --flask postgresql://user:user_pass@localhost/bmn_db > ./server/orm/bmn.py
     ```
-
