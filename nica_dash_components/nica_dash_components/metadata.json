@@ -1,0 +1,82 @@
+{
+  "src/lib/components/RunSelector.react.js": {
+    "description": "@param  {RunSelector.propTypes} props\n@returns {JSX.Element}\n@constructor",
+    "displayName": "RunSelector",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID used to identify this component in Dash callbacks."
+      },
+      "availableRuns": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "shape",
+            "value": {
+              "period": {
+                "name": "number",
+                "required": false
+              },
+              "numbers": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "number"
+                },
+                "required": false
+              }
+            }
+          }
+        },
+        "required": true,
+        "description": ""
+      },
+      "selectedRun": {
+        "type": {
+          "name": "shape",
+          "value": {
+            "number": {
+              "name": "number",
+              "required": false
+            },
+            "period": {
+              "name": "number",
+              "required": false
+            }
+          }
+        },
+        "required": false,
+        "description": ""
+      },
+      "selectedTimeInterval": {
+        "type": {
+          "name": "shape",
+          "value": {
+            "start": {
+              "name": "instanceOf",
+              "value": "Date",
+              "required": false
+            },
+            "end": {
+              "name": "instanceOf",
+              "value": "Date",
+              "required": false
+            }
+          }
+        },
+        "required": false,
+        "description": ""
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+      }
+    }
+  }
+}

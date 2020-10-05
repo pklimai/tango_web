@@ -4,7 +4,7 @@ services:
 
   mysql:
     image: mariadb
-    restart: always
+#    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root_pass
       MYSQL_DATABASE: hdbpp
@@ -18,7 +18,7 @@ services:
 
   postgres:
     image: postgres
-    restart: always
+#    restart: always
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: user_pass
@@ -31,6 +31,6 @@ services:
 
   adminer:
     image: adminer
-    restart: always
+#    restart: always
     ports:
       - 8080:8080

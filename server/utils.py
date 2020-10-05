@@ -10,6 +10,15 @@ from server.orm.bmn import Run
 from server.orm.hdbpp import AttConfDataType, AttConf
 from server.typings import DomainEntry
 
+@cache.memoize(timeout=CACHE_TIMEOUT_SEC)
+def _get_available_runs():
+    available_runs = {}
+    for run in db.session.query(Run):
+        if run.run_period.period_number not in available_runs:
+            available_runs[run.run_period.period_number] = []
+        available_runs[run.run_period.period_number].append(run.run_number)
+    return [dict(period=r, numbers=available_runs[r]) for r in available_runs]
+
 
 @cache.memoize(timeout=CACHE_TIMEOUT_SEC)
 def _get_run(period: int = None, run: int = None) -> Union[Run, None]:

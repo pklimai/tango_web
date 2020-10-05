@@ -1,0 +1,7 @@
+include nica_dash_components/nica_dash_components.min.js
+include nica_dash_components/nica_dash_components.min.js.map
+include nica_dash_components/metadata.json
+include nica_dash_components/package-info.json
+include README.md
+include LICENSE
+include package.json
