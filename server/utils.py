@@ -77,14 +77,14 @@ def _get_run_attrs(period: int, run: int) -> List[int]:
 
 
 @cache.memoize(timeout=CACHE_TIMEOUT_SEC)
-def _get_attrs_for_params(domain: str, family: str, member: str, name: str) -> List[Tuple[int, int]]:
+def _get_attrs_for_params(domain: str, family: str, member: str) -> List[Tuple[int, int]]:
     engine: Engine = db.get_engine(app.server, 'hdbpp')
 
     return list(engine.execute("""
         SELECT DISTINCT att_conf_data_type_id, att_conf_id
         FROM att_conf
-        WHERE domain = "{}" AND family = "{}" AND member = "{}" AND name = "{}";
-    """.format(domain, family, member, name)).fetchall())
+        WHERE domain = "{}" AND family = "{}" AND member = "{}";
+    """.format(domain, family, member)).fetchall())
 
 
 def get_values(

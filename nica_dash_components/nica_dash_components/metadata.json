@@ -56,13 +56,73 @@
           "name": "shape",
           "value": {
             "start": {
-              "name": "instanceOf",
-              "value": "Date",
+              "name": "string",
               "required": false
             },
             "end": {
-              "name": "instanceOf",
-              "value": "Date",
+              "name": "string",
+              "required": false
+            }
+          }
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "null",
+          "computed": false
+        }
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+      }
+    }
+  },
+  "src/lib/components/TangoParameterSelector.react.js": {
+    "description": "@param  {TangoParameterSelector.propTypes} props\n@returns {JSX.Element}\n@constructor",
+    "displayName": "TangoParameterSelector",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID used to identify this component in Dash callbacks."
+      },
+      "availableParams": {
+        "type": {
+          "name": "objectOf",
+          "value": {
+            "name": "objectOf",
+            "value": {
+              "name": "arrayOf",
+              "value": {
+                "name": "string"
+              }
+            }
+          }
+        },
+        "required": true,
+        "description": ""
+      },
+      "selectedParam": {
+        "type": {
+          "name": "shape",
+          "value": {
+            "domain": {
+              "name": "string",
+              "required": false
+            },
+            "family": {
+              "name": "string",
+              "required": false
+            },
+            "member": {
+              "name": "string",
               "required": false
             }
           }

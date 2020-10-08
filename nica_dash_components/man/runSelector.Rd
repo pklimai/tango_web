@@ -29,8 +29,8 @@ those elements have the following types:
 
 \item{selectedTimeInterval}{Lists containing elements 'start', 'end'.
 those elements have the following types:
-  - start (optional)
-  - end (optional). }
+  - start (character; optional)
+  - end (character; optional). }
 }
 
 \value{named list of JSON elements corresponding to React.js properties and their values}

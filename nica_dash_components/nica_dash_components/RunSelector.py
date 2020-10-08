@@ -21,8 +21,8 @@ Those keys have the following types:
   - period (number; optional)
 - selectedTimeInterval (dict; optional): selectedTimeInterval has the following type: dict containing keys 'start', 'end'.
 Those keys have the following types:
-  - start (optional)
-  - end (optional)"""
+  - start (string; optional)
+  - end (string; optional)"""
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, availableRuns=Component.REQUIRED, selectedRun=Component.UNDEFINED, selectedTimeInterval=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'availableRuns', 'selectedRun', 'selectedTimeInterval']
