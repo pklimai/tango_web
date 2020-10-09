@@ -21,7 +21,7 @@ from server.config import DEBUG, PORT, HOST
 from server.orm.bmn import Run
 from server.orm.hdbpp import AttConf
 from server.typings import ScatterPlots
-from server.utils import _get_run, _get_attrs_for_params, get_values, _get_attrs
+from server.utils import _get_run, _get_attrs_for_params, get_values, _get_attrs, prepare_datetime
 
 
 def make_layout(runs: List[int]):
@@ -39,15 +39,18 @@ def make_layout(runs: List[int]):
                             id="param_selector",
                             availableParams={}
                         )
-                        # html.H1(id="param_selector", children="Placeholder")
                     ]
                 ))
             ]),
             dbc.Col(xs=10, children=[
                 sd_material_ui.Card(
-                    headerTitle="Graph",
+                    id="graph-card",
+                    headerStyle={ "justify-content": 'center', "text-align": 'center'},
                     expanded=True,
-                    children=[dcc.Graph(id="live-update-graph")])
+                    children=[dcc.Graph(
+                        id="live-update-graph",
+
+                    )])
             ]),
         ])
     ])
@@ -68,15 +71,26 @@ def update_timerange(selected_run, selected_time_interval):
     return selected_time_interval
 
 
+@app.callback(Output('param_selector', 'selectedParam'),
+              [Input('run_selector', 'selectedTimeInterval')])
+def reset_selected_param(selected_time_interval):
+    return None
+
+
 @app.callback(Output('param_selector', 'availableParams'),
               [Input('run_selector', 'selectedTimeInterval')])
 def update_attrs(selected_time_interval):
     if selected_time_interval:
-        start_dt = selected_time_interval["start"]
-        end_dt = selected_time_interval["end"]
-        time_filter = text("att_conf_id in ({})".format(", ".join(str(v) for v in _get_attrs(start_dt, end_dt))))
 
-        domains: List[str] = [d[0] for d in db.session.query(AttConf.domain) \
+        start_dt = prepare_datetime(selected_time_interval["start"])
+        end_dt = prepare_datetime(selected_time_interval["end"])
+
+        time_filter = text("att_conf_id in ({})".format(", ".join(str(v) for v in _get_attrs(
+            start_dt.isoformat(), end_dt.isoformat()))))
+
+        print(time_filter)
+
+        domains: List[str] = [d[0] for d in db.session.query(AttConf.domain)
             .filter(time_filter).distinct()]
 
         result = {d: {} for d in domains}
@@ -84,6 +98,7 @@ def update_attrs(selected_time_interval):
         for domain in domains:
             families = [f[0] for f in db.session.query(AttConf.family)
                 .filter(AttConf.domain == domain)
+                .filter(time_filter)
                 .distinct()]
             result[domain] = {f: {} for f in families}
 
@@ -91,23 +106,38 @@ def update_attrs(selected_time_interval):
                 members = [f[0] for f in db.session.query(AttConf.member)
                     .filter(AttConf.domain == domain)
                     .filter(AttConf.family == family)
+                    .filter(time_filter)
                     .distinct()]
                 result[domain][family] = members
         return result
     return {}
 
 
+@app.callback(Output('graph-card', 'headerTitle'),
+              [Input('param_selector', 'selectedParam')])
+def set_graph_title(selected_param) -> str:
+    if not selected_param:
+        return "Graph"
+    domain = selected_param["domain"]
+    family = selected_param["family"]
+    member = selected_param["member"]
+
+    return "{}/{}/{}".format(domain, family, member)
+
+
 @app.callback(Output('live-update-graph', 'figure'),
               [Input('param_selector', 'selectedParam')],
               (State('run_selector', 'selectedTimeInterval'),))
 def draw_group(selected_param, selected_time_interval) -> go.Figure:
-    if not selected_param or not selected_time_interval:
+    if (not selected_param) or (not selected_time_interval):
         return go.Figure(layout=go.Layout(
-            height=500,
+            margin=dict(l=50, r=50, b=50, t=50, pad=4),
+            height=600,
         ))
 
-    start_dt = parse(selected_time_interval["start"])
-    end_dt = parse(selected_time_interval["end"])
+    start_dt = prepare_datetime(selected_time_interval["start"])
+    end_dt = prepare_datetime(selected_time_interval["end"])
+
     domain = selected_param["domain"]
     family = selected_param["family"]
     member = selected_param["member"]
@@ -130,9 +160,9 @@ def draw_group(selected_param, selected_time_interval) -> go.Figure:
     return go.Figure(
         data=data,
         layout=go.Layout(
-            title="{}/{}/{}".format(domain, family, member),
             xaxis=go.layout.XAxis(title='Acquisition Time'),
-            height=500,
+            margin=dict(l=50, r=50, b=50, t=50, pad=4),
+            height=600,
         )
     )
 

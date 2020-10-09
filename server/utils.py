@@ -1,6 +1,8 @@
+from time import mktime
 from datetime import datetime
 from typing import Union, List, Iterable, Tuple, Dict
 
+from dateutil.parser import parse as tparse
 from sqlalchemy import and_, text
 from sqlalchemy.engine import Engine
 
@@ -9,6 +11,19 @@ from server.config import CACHE_TIMEOUT_SEC
 from server.orm.bmn import Run
 from server.orm.hdbpp import AttConfDataType, AttConf
 from server.typings import DomainEntry
+
+
+def utc2local (utc):
+    epoch = mktime(utc.timetuple())
+    offset = datetime.fromtimestamp (epoch) - datetime.utcfromtimestamp (epoch)
+    return utc + offset
+
+
+def prepare_datetime(time_str: str) -> datetime:
+    print(time_str)
+    if time_str.endswith("Z"): return utc2local(tparse(time_str))
+    return tparse(time_str)
+
 
 @cache.memoize(timeout=CACHE_TIMEOUT_SEC)
 def _get_available_runs():
