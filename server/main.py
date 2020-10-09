@@ -9,6 +9,7 @@ from sqlalchemy import text
 
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
+import dash_html_components as html
 
 import sd_material_ui
 
@@ -25,7 +26,17 @@ from server.utils import _get_run, _get_attrs_for_params, get_values, _get_attrs
 
 
 def make_layout(runs: List[int]):
-    return dbc.Container(fluid=1, children=[
+    return dbc.Container(fluid=1,
+        style={'background': "#e0e0e0", "height": "100vh"},
+        children=[
+        dbc.Navbar(color='primary', children=[html.H3(
+            "BM@N Slow Control Viewer",
+            style={
+                "justify-content": 'center',
+                "text-align": 'center',
+                "color": "white",
+                "width": "100%"
+            })]),
         dbc.Row([
             dbc.Col(xs=2, children=[
                 dbc.Row(children=dbc.Col(
@@ -45,7 +56,11 @@ def make_layout(runs: List[int]):
             dbc.Col(xs=10, children=[
                 sd_material_ui.Card(
                     id="graph-card",
-                    headerStyle={ "justify-content": 'center', "text-align": 'center'},
+                    style={"margin": "10px", "border-radius": "0.6em"},
+                    headerStyle={
+                        "justify-content": 'center',
+                        "text-align": 'center'
+                    },
                     expanded=True,
                     children=[dcc.Graph(
                         id="live-update-graph",
@@ -66,7 +81,6 @@ app.layout = make_layout([n[0] for n in sorted(
 def update_timerange(selected_run, selected_time_interval):
     if selected_run:
         run = _get_run(selected_run['period'], selected_run['number'])
-        print(run)
         return dict(start=run.start_datetime, end=run.end_datetime)
     return selected_time_interval
 
@@ -87,8 +101,6 @@ def update_attrs(selected_time_interval):
 
         time_filter = text("att_conf_id in ({})".format(", ".join(str(v) for v in _get_attrs(
             start_dt.isoformat(), end_dt.isoformat()))))
-
-        print(time_filter)
 
         domains: List[str] = [d[0] for d in db.session.query(AttConf.domain)
             .filter(time_filter).distinct()]

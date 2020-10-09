@@ -20,7 +20,6 @@ def utc2local (utc):
 
 
 def prepare_datetime(time_str: str) -> datetime:
-    print(time_str)
     if time_str.endswith("Z"): return utc2local(tparse(time_str))
     return tparse(time_str)
 

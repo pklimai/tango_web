@@ -49,10 +49,13 @@ export default function RunSelector(props) {
     }, [selectedTimeInterval, selectedRun])
 
     return (
-        <Card style={{minWidth: "200px"}} id={id}>
+        <Card style={{minWidth: "200px", margin: "10px", borderRadius: "0.6em"}} id={id}>
             <CardHeader
                 title={"Run Selector"}
-                style={{ justifyContent: 'center', textAlign: 'center'}}>
+                style={{
+                    justifyContent: 'center',
+                    textAlign: 'center',
+                }}>
             </CardHeader>
             <Typography component="div" style={
                 { justifyContent: 'center', display: "grid"}}>

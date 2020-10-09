@@ -42,7 +42,7 @@ export default function TangoParameterSelector(props) {
     }, [selectedParam,])
 
     return (
-        <Card style={{minWidth: "200px"}} id={id}>
+        <Card style={{minWidth: "200px", margin: "10px", borderRadius: "0.6em"}} id={id}>
             <CardHeader
                 title={"Tango Parameter"}
                 style={{ justifyContent: 'center', textAlign: 'center'}}>
