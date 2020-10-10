@@ -22,14 +22,15 @@ Those keys have the following types:
 - selectedTimeInterval (dict; optional): selectedTimeInterval has the following type: dict containing keys 'start', 'end'.
 Those keys have the following types:
   - start (string; optional)
-  - end (string; optional)"""
+  - end (string; optional)
+- style (dict; optional)"""
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, availableRuns=Component.REQUIRED, selectedRun=Component.UNDEFINED, selectedTimeInterval=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'availableRuns', 'selectedRun', 'selectedTimeInterval']
+    def __init__(self, id=Component.UNDEFINED, availableRuns=Component.REQUIRED, selectedRun=Component.UNDEFINED, selectedTimeInterval=Component.UNDEFINED, style=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'availableRuns', 'selectedRun', 'selectedTimeInterval', 'style']
         self._type = 'RunSelector'
         self._namespace = 'nica_dash_components'
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'availableRuns', 'selectedRun', 'selectedTimeInterval']
+        self.available_properties = ['id', 'availableRuns', 'selectedRun', 'selectedTimeInterval', 'style']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

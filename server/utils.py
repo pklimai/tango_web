@@ -35,6 +35,35 @@ def _get_available_runs():
 
 
 @cache.memoize(timeout=CACHE_TIMEOUT_SEC)
+def _get_available_attrs():
+    domains: List[str] = [d[0] for d in db.session.query(AttConf.domain)
+                          .distinct()]
+
+    result = {d: {} for d in domains}
+
+    for domain in domains:
+        families = [f[0] for f in db.session.query(AttConf.family)
+                    .filter(AttConf.domain == domain)
+                    .distinct()]
+        result[domain] = {f: {} for f in families}
+
+        for family in families:
+            members = [f[0] for f in db.session.query(AttConf.member)
+                       .filter(AttConf.domain == domain)
+                       .filter(AttConf.family == family)
+                       .distinct()]
+            result[domain][family] = {m: {} for m in members}
+            for member in members:
+                names = members = [n[0] for n in db.session.query(AttConf.name)
+                                   .filter(AttConf.domain == domain)
+                                   .filter(AttConf.family == family)
+                                   .filter(AttConf.member == member)
+                                   .distinct()]
+                result[domain][family][member] = names
+    return result
+
+
+@cache.memoize(timeout=CACHE_TIMEOUT_SEC)
 def _get_run(period: int = None, run: int = None) -> Union[Run, None]:
     if period is None or run is None:
         return None
@@ -91,14 +120,14 @@ def _get_run_attrs(period: int, run: int) -> List[int]:
 
 
 @cache.memoize(timeout=CACHE_TIMEOUT_SEC)
-def _get_attrs_for_params(domain: str, family: str, member: str) -> List[Tuple[int, int]]:
+def _get_attrs_for_params(domain: str, family: str, member: str, name: str) -> List[Tuple[int, int]]:
     engine: Engine = db.get_engine(app.server, 'hdbpp')
 
     return list(engine.execute("""
         SELECT DISTINCT att_conf_data_type_id, att_conf_id
         FROM att_conf
-        WHERE domain = "{}" AND family = "{}" AND member = "{}";
-    """.format(domain, family, member)).fetchall())
+        WHERE domain = "{}" AND family = "{}" AND member = "{}" AND name = "{}";
+    """.format(domain, family, member, name)).fetchall())
 
 
 def get_values(

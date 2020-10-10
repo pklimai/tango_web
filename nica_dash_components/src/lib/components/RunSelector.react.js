@@ -24,7 +24,7 @@ import _ from 'lodash'
  * @constructor
  */
 export default function RunSelector(props) {
-    const {id, setProps, availableRuns, selectedTimeInterval, selectedRun} = props;
+    const {id, setProps, availableRuns, selectedTimeInterval, selectedRun, style} = props;
 
     const [timeChecked, setTimeChecked] = React.useState(false)
     const [runNumber, setRunNumber] = React.useState("")
@@ -36,7 +36,6 @@ export default function RunSelector(props) {
     const availableNumbers = (availableRuns.find(run => run.period === runPeriod) || {numbers: []}).numbers
 
     useEffect(() => {
-        console.log(selectedRun);
         if(selectedRun) {
             setRunNumber(selectedRun.number)
             setRunPeriod(selectedRun.period)
@@ -48,8 +47,21 @@ export default function RunSelector(props) {
         }
     }, [selectedTimeInterval, selectedRun])
 
+
+    useEffect(() => {
+        if (timeChecked) {
+            console.log({selectedTimeInterval: {start: startDT.toISOString(), end: endDT.toISOString()}});
+            setProps({selectedTimeInterval: {start: startDT.toISOString(), end: endDT.toISOString()}})
+        } else {
+            if(runNumber && runPeriod) {
+                console.log({selectedRun: {number: Number(runNumber), period: Number(runPeriod)}});
+                setProps({selectedRun: {number: Number(runNumber), period: Number(runPeriod)}})
+            }
+        }
+    }, [runNumber, runPeriod, startDT, endDT])
+
     return (
-        <Card style={{minWidth: "200px", margin: "10px", borderRadius: "0.6em"}} id={id}>
+        <Card style={style} id={id}>
             <CardHeader
                 title={"Run Selector"}
                 style={{
@@ -117,19 +129,6 @@ export default function RunSelector(props) {
                     </>
                 }
             </CardContent>
-            <CardActions style={
-                { justifyContent: 'center', display: "grid", gridRowGap: "10px"}}>
-                <Button
-                    variant={'outlined'} style={{minWidth: 120}}
-                    onClick={e => {
-                        timeChecked?
-                            setProps({selectedTimeInterval: {start: startDT.toISOString(), end: endDT.toISOString()}}) :
-                            setProps({selectedRun: {number: Number(runNumber), period: Number(runPeriod)}})
-                    }}
-                >
-                    Load
-                </Button>
-            </CardActions>
         </Card>
     );
 }
@@ -161,6 +160,8 @@ RunSelector.propTypes = {
         start: PropTypes.string,
         end: PropTypes.string
     }),
+
+    style: PropTypes.object,
 
     /**
      * Dash-assigned callback that should be called to report property changes

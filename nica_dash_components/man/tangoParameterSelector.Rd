@@ -10,19 +10,23 @@
 }
 
 \usage{
-tangoParameterSelector(id=NULL, availableParams=NULL, selectedParam=NULL)
+tangoParameterSelector(id=NULL, availableParams=NULL, dictionary=NULL,
+selectedParam=NULL, style=NULL)
 }
 
 \arguments{
 \item{id}{Character. The ID used to identify this component in Dash callbacks.}
 
-\item{availableParams}{List with named elements and values of type list with named elements and values of type list of characters. }
+\item{availableParams}{List with named elements and values of type list with named elements and values of type list with named elements and values of type list of characters. }
 
-\item{selectedParam}{Lists containing elements 'domain', 'family', 'member'.
+\item{dictionary}{List of lists containing elements 'name', 'param'.
 those elements have the following types:
-  - domain (character; optional)
-  - family (character; optional)
-  - member (character; optional). }
+  - name (character; optional)
+  - param (optional)s. }
+
+\item{selectedParam}{}
+
+\item{style}{Named list. }
 }
 
 \value{named list of JSON elements corresponding to React.js properties and their values}

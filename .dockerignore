@@ -1,3 +1,6 @@
 testing*/
 nica_dash_components/venv
 nica_dash_components/node_modules
+nica_dash_components/build
+nica_dash_components/.idea
+nica_dash_components/nica_dash_components.egg-info

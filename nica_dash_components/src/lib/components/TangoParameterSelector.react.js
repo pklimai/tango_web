@@ -9,6 +9,9 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import Grid from '@material-ui/core/Grid';
+import Switch from '@material-ui/core/Switch';
+import Typography from '@material-ui/core/Typography';
 
 
 /**
@@ -17,116 +20,194 @@ import MenuItem from '@material-ui/core/MenuItem';
  * @constructor
  */
 export default function TangoParameterSelector(props) {
-    const {id, setProps, availableParams, selectedParam} = props;
+    const {id, setProps, availableParams, selectedParam, style, dictionary} = props;
 
     const [domain, setDomain] = React.useState("")
     const [family, setFamily] = React.useState("")
     const [member, setMember] = React.useState("")
+    const [name, setName] = React.useState("")
 
     const availableDomains = Object.keys(availableParams)
     const availableFamilies = domain? Object.keys(availableParams[domain]) : []
-    const availableMembers = family? availableParams[domain][family] : []
+    const availableMembers = family? Object.keys(availableParams[domain][family]) : []
+    const availableNames = member? availableParams[domain][family][member] : []
+
+    const [option, setOption] = React.useState("")
+
+    const availableOptions = dictionary? dictionary.map(item => item.name) : []
+
+    const [isCustom, setIsCustom] = React.useState(true)
 
     useEffect(() => {
+
+        console.log(selectedParam);
 
         if(!selectedParam) {
             setDomain("")
             setFamily("")
             setMember("")
+            setName("")
         } else {
             setDomain(selectedParam.domain)
             setFamily(selectedParam.family)
             setMember(selectedParam.member)
+            setName(selectedParam.name)
         }
 
     }, [selectedParam,])
 
     return (
-        <Card style={{minWidth: "200px", margin: "10px", borderRadius: "0.6em"}} id={id}>
+        <Card style={style} id={id}>
             <CardHeader
                 title={"Tango Parameter"}
                 style={{ justifyContent: 'center', textAlign: 'center'}}>
             </CardHeader>
+            <Typography component="div" style={
+                { justifyContent: 'center', display: "grid"}}>
+                <Grid component="label" container alignItems="center" spacing={1} alignContent={'center'}>
+                    <Grid item>Dictionary</Grid>
+                    <Grid item>
+                        <Switch
+                            checked={isCustom}
+                            onChange={e => setIsCustom(e.target.checked)}
+                        />
+                    </Grid>
+                    <Grid item>Custom</Grid>
+                </Grid>
+            </Typography>
             <CardContent style={
                 { justifyContent: 'center', display: "grid", gridRowGap: "10px"}}>
-                <FormControl variant="outlined" style={{minWidth: 120}}>
-                    <InputLabel id="domain-label">Domain</InputLabel>
-                    <Select
-                        labelId="domain-label"
-                        id="domain"
-                        value={domain}
-                        onChange={e => {
-                            setDomain(e.target.value)
-                            setFamily("")
-                            setMember("")
-                        }}
-                        label="Domain"
-                    >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        {availableDomains.map(domain =>
-                            <MenuItem key={domain} value={domain}>{domain}</MenuItem>)
-                        }
-                    </Select>
-                </FormControl>
-                <FormControl variant="outlined" style={{minWidth: 120}}>
-                    <InputLabel id="family-label">Family</InputLabel>
-                    <Select
-                        labelId="family-label"
-                        id="family"
-                        value={family}
-                        onChange={e => {
-                            setFamily(e.target.value)
-                            setMember("")
-                        }}
-                        label="Family"
-                    >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        {availableFamilies.map(family =>
-                            <MenuItem key={family} value={family}>{family}</MenuItem>)
-                        }
-                    </Select>
-                </FormControl>
-                <FormControl variant="outlined" style={{minWidth: 120}}>
-                    <InputLabel id="member-label">Member</InputLabel>
-                    <Select
-                        labelId="member-label"
-                        id="member"
-                        value={member}
-                        onChange={e => {
-                            setMember(e.target.value)
-                        }}
-                        label="Member"
-                    >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        {availableMembers.map(member =>
-                            <MenuItem key={member} value={member}>{member}</MenuItem>)
-                        }
-                    </Select>
-                </FormControl>
+                {
+                    isCustom? <> <FormControl variant="outlined" style={{minWidth: 120}}>
+                        <InputLabel id="domain-label">Domain</InputLabel>
+                        <Select
+                            labelId="domain-label"
+                            id="domain"
+                            value={domain}
+                            onChange={e => {
+                                setDomain(e.target.value)
+                                setFamily("")
+                                setMember("")
+                                setName("")
+                            }}
+                            label="Domain"
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            {availableDomains.map(domain =>
+                                <MenuItem key={domain} value={domain}>{domain}</MenuItem>)
+                            }
+                        </Select>
+                    </FormControl>
+                        <FormControl variant="outlined" style={{minWidth: 120}}>
+                            <InputLabel id="family-label">Family</InputLabel>
+                            <Select
+                                labelId="family-label"
+                                id="family"
+                                value={family}
+                                onChange={e => {
+                                    setFamily(e.target.value)
+                                    setMember("")
+                                    setName("")
+                                }}
+                                label="Family"
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                {availableFamilies.map(family =>
+                                    <MenuItem key={family} value={family}>{family}</MenuItem>)
+                                }
+                            </Select>
+                        </FormControl>
+                        <FormControl variant="outlined" style={{minWidth: 120}}>
+                            <InputLabel id="member-label">Member</InputLabel>
+                            <Select
+                                labelId="member-label"
+                                id="member"
+                                value={member}
+                                onChange={e => {
+                                    setMember(e.target.value)
+                                    setName("")
+                                }}
+                                label="Member"
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                {availableMembers.map(member =>
+                                    <MenuItem key={member} value={member}>{member}</MenuItem>)
+                                }
+                            </Select>
+                        </FormControl>
+                        <FormControl variant="outlined" style={{minWidth: 120}}>
+                            <InputLabel id="name-label">Name</InputLabel>
+                            <Select
+                                labelId="name-label"
+                                id="name"
+                                value={name}
+                                onChange={e => {
+                                    setName(e.target.value)
+                                    setProps({selectedParam: {domain, family, member, name: e.target.value}})
+                                }}
+                                label="Name"
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                {availableNames.map(name =>
+                                    <MenuItem key={name} value={name}>{name}</MenuItem>)
+                                }
+                            </Select>
+                        </FormControl>
+                    </> : <>
+                        <FormControl variant="outlined" style={{minWidth: 120}}>
+                            <InputLabel id="option-label">Option</InputLabel>
+                            <Select
+                                labelId="option-label"
+                                id="option"
+                                value={option}
+                                onChange={e => {
+                                    const {domain, family, member, name} = dictionary
+                                            .find(option => option.name === e.target.value)
+                                            .param
+                                    setDomain(domain)
+                                    setFamily(family)
+                                    setMember(member)
+                                    setName(name)
+
+                                    setProps({selectedParam: {domain, family, member, name}})
+
+                                    setOption(e.target.value)
+                                }}
+                                label="Option"
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                {availableOptions.map(option =>
+                                    <MenuItem key={option} value={option}>{option}</MenuItem>)
+                                }
+                            </Select>
+                        </FormControl>
+                    </>
+
+                }
             </CardContent>
-            <CardActions style={
-                { justifyContent: 'center', display: "grid", gridRowGap: "10px"}}>
-                <Button
-                    variant={'outlined'} style={{minWidth: 120}}
-                    onClick={e => {
-                        setProps({selectedParam: {domain, family, member}})
-                    }}
-                >
-                    Load
-                </Button>
-            </CardActions>
         </Card>
     );
 }
 
 TangoParameterSelector.defaultProps = {
 };
+
+const TangoParam = PropTypes.shape({
+    domain: PropTypes.string,
+    family: PropTypes.string,
+    member: PropTypes.string,
+    name: PropTypes.string
+})
 
 TangoParameterSelector.propTypes = {
 
@@ -137,15 +218,20 @@ TangoParameterSelector.propTypes = {
 
     availableParams: PropTypes.objectOf(
         PropTypes.objectOf(
-            PropTypes.arrayOf(PropTypes.string)
+            PropTypes.objectOf(
+                PropTypes.arrayOf(PropTypes.string)
+            )
         )
     ).isRequired,
 
-    selectedParam: PropTypes.shape({
-        domain: PropTypes.string,
-        family: PropTypes.string,
-        member: PropTypes.string
-    }),
+    dictionary: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string,
+        param: TangoParam
+    })),
+
+    selectedParam: TangoParam,
+
+    style: PropTypes.object,
 
     /**
      * Dash-assigned callback that should be called to report property changes

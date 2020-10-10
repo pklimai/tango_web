@@ -1,0 +1,970 @@
+{
+  "mpd": {
+    "tof": {
+      "hv": [
+        "umes",
+        "uset",
+        "iset",
+        "imes"
+      ],
+      "adc_202": [
+        "ch0",
+        "ch1",
+        "ch2",
+        "ch3",
+        "ch4",
+        "ch5",
+        "ch6",
+        "ch7",
+        "ch8",
+        "ch9"
+      ],
+      "mpd_beam_lv": [
+        "voltage",
+        "current",
+        "measuredsensevoltage",
+        "measuredterminalvoltage",
+        "measuredcurrent",
+        "channelstatus"
+      ],
+      "hv_st": [
+        "multi_tof_hv"
+      ],
+      "adc_mpd_gas": [
+        "ch0",
+        "ch1",
+        "ch2",
+        "ch3",
+        "ch4",
+        "ch5",
+        "ch6",
+        "ch7",
+        "ch8",
+        "ch9"
+      ],
+      "adc_mpd_house": [
+        "ch0",
+        "ch1",
+        "ch2",
+        "ch3",
+        "ch4",
+        "ch5",
+        "ch6",
+        "ch7",
+        "ch8",
+        "ch9"
+      ],
+      "gas_202": [
+        "flow1cal",
+        "flow2cal",
+        "flow3cal",
+        "flow4cal",
+        "range1",
+        "range2",
+        "range3",
+        "range4",
+        "stch1",
+        "stch2",
+        "stch3",
+        "stch4",
+        "fl1sp",
+        "fl2sp",
+        "fl3sp",
+        "fl4sp",
+        "flow1",
+        "flow2",
+        "flow3",
+        "flow4"
+      ],
+      "dustmon_42": [
+        "small_particles",
+        "big_particles"
+      ],
+      "pir230e_cleanroom": [
+        "temperature",
+        "humidity"
+      ],
+      "avg_adc_202": [
+        "avg_ch0",
+        "avg_ch1"
+      ]
+    },
+    "t0t": {
+      "status": [
+        "t0u_state",
+        "t0u_extended_state",
+        "t0u_ttigger_type",
+        "t0u_counts",
+        "multi_hv_state",
+        "hv_cell1_state",
+        "hv_cell2_state",
+        "hv_cell3_state",
+        "hv_cell4_state",
+        "hv_cell5_state",
+        "hv_cell6_state",
+        "hv_cell7_state",
+        "hv_cell8_state",
+        "hv_cell9_state",
+        "hv_cell10_state",
+        "hv_cell11_state",
+        "hv_cell12_state",
+        "hv_serialnumber",
+        "hv_overheating",
+        "hv_temp",
+        "hv_bv",
+        "hv_lv",
+        "hv_cell1_vset",
+        "hv_cell1_vout",
+        "hv_cell1_iout",
+        "hv_cell2_vset",
+        "hv_cell2_vout",
+        "hv_cell2_iout",
+        "hv_cell3_vset",
+        "hv_cell3_vout",
+        "hv_cell3_iout",
+        "hv_cell4_vset",
+        "hv_cell4_vout",
+        "hv_cell4_iout",
+        "hv_cell5_vset",
+        "hv_cell5_vout",
+        "hv_cell5_iout",
+        "hv_cell6_vset",
+        "hv_cell6_vout",
+        "hv_cell6_iout",
+        "hv_cell7_vset",
+        "hv_cell7_vout",
+        "hv_cell7_iout",
+        "hv_cell8_vset",
+        "hv_cell8_vout",
+        "hv_cell8_iout",
+        "hv_cell9_vset",
+        "hv_cell9_vout",
+        "hv_cell9_iout",
+        "hv_cell10_vset",
+        "hv_cell10_vout",
+        "hv_cell10_iout",
+        "hv_cell11_vset",
+        "hv_cell11_vout",
+        "hv_cell11_iout",
+        "hv_cell12_vset",
+        "hv_cell12_vout",
+        "hv_cell12_iout",
+        "t0u_trigger_lv_ch1",
+        "t0u_trigger_lv_ch2",
+        "t0u_trigger_lv_ch3",
+        "t0u_trigger_lv_ch4",
+        "multi_t0t"
+      ],
+      "jpts": [
+        "multi_tou_state",
+        "multi_hv_state1",
+        "multi_hv_state2",
+        "multi_t0t",
+        "trigger_type",
+        "t0u_general_state",
+        "hv_1",
+        "hv_2",
+        "counts"
+      ]
+    },
+    "ecal": {
+      "hv": [
+        "uset8",
+        "uset0",
+        "uset1",
+        "uset2",
+        "uset3",
+        "uset4",
+        "uset5",
+        "uset6",
+        "uset7",
+        "uset9"
+      ],
+      "hv_st": [
+        "statall",
+        "stat"
+      ],
+      "hv_new": [
+        "uset0",
+        "uset1",
+        "uset2",
+        "uset3",
+        "uset4",
+        "uset5",
+        "uset6",
+        "uset7",
+        "uset8",
+        "uset9",
+        "multi_ecal_hv"
+      ]
+    },
+    "gem": {
+      "wiener_hv": [
+        "u",
+        "u_nom",
+        "i",
+        "u_stb",
+        "multi_hvstatus",
+        "chn",
+        "layer",
+        "plane_on",
+        "trip"
+      ],
+      "wiener_lv": [
+        "multi_lvstatus"
+      ],
+      "adc_gas_sensors": [
+        "ch0",
+        "ch1",
+        "ch_raw0",
+        "ch_raw1",
+        "ch_raw2",
+        "ch2",
+        "ch_raw3",
+        "ch3",
+        "ch_raw4",
+        "ch4",
+        "ch_raw5",
+        "ch5",
+        "ch_raw6",
+        "ch6",
+        "ch_raw7",
+        "ch7",
+        "ch_raw8",
+        "ch8",
+        "ch_raw9",
+        "ch9"
+      ]
+    },
+    "dch": {
+      "wiener_hv": [
+        "multi_hvstatus",
+        "chn",
+        "layer",
+        "u_stb",
+        "u_nom",
+        "i",
+        "u"
+      ],
+      "wiener_lv": [
+        "multi_lvstatus"
+      ],
+      "mpod_lv": [
+        "mainframestatus",
+        "channelname",
+        "channelstatus",
+        "voltage",
+        "current",
+        "measuredsensevoltage",
+        "measuredterminalvoltage",
+        "measuredcurrent"
+      ]
+    },
+    "zdc": {
+      "hv": [
+        "umes",
+        "uset"
+      ],
+      "hv_st": [
+        "multi_zdc_hv"
+      ],
+      "position_sys": [
+        "db_bs1_p",
+        "db_klet_v",
+        "db_bs2_p",
+        "db_klet_i",
+        "db_klet_m",
+        "db_portal_taskpos",
+        "db_coordinata_k",
+        "db_portal_v",
+        "db_klet_taskpos",
+        "db_portal_m",
+        "db_portal_i"
+      ]
+    },
+    "tof700": {
+      "hv": [
+        "umes",
+        "uset",
+        "iset",
+        "imes"
+      ],
+      "hv_st": [
+        "multi_tof700_hv_st"
+      ],
+      "temp": [
+        "chamber-15",
+        "chamber-16",
+        "chamber-17",
+        "chamber-18",
+        "chamber-19",
+        "chamber-20",
+        "chamber-10",
+        "chamber-42",
+        "chamber-36",
+        "chamber-41",
+        "chamber-22",
+        "chamber-40",
+        "chamber-37",
+        "chamber-13",
+        "chamber-02",
+        "chamber-03",
+        "chamber-05",
+        "chamber-06",
+        "chamber-08",
+        "chamber-09",
+        "chamber-11",
+        "chamber-12",
+        "chamber-14",
+        "chamber-01",
+        "chamber-04",
+        "chamber-07",
+        "chamber-00",
+        "chamber-29",
+        "chamber-30",
+        "chamber-27",
+        "chamber-34",
+        "chamber-31",
+        "chamber-25",
+        "chamber-28",
+        "chamber-24",
+        "chamber-33",
+        "chamber-23",
+        "chamber-38",
+        "chamber-43",
+        "chamber-39",
+        "chamber-21"
+      ],
+      "hv_5000": [
+        "umes",
+        "uset",
+        "imes",
+        "iset"
+      ],
+      "hv_5001": [
+        "umes",
+        "uset",
+        "imes",
+        "iset"
+      ],
+      "hv_5002": [
+        "umes",
+        "uset",
+        "imes",
+        "iset"
+      ],
+      "hv_5003": [
+        "umes",
+        "uset",
+        "imes",
+        "iset"
+      ]
+    },
+    "bmn": {
+      "adc_bman_beam": [
+        "ch0",
+        "ch1",
+        "ch2",
+        "ch3",
+        "ch4",
+        "ch5",
+        "ch6",
+        "ch7",
+        "ch8",
+        "ch9"
+      ],
+      "sensors": [
+        "temp1",
+        "temp2",
+        "temp3",
+        "temp4"
+      ],
+      "statusserver": [
+        "mpd.sts.lv.multi_lvstatus",
+        "mpd.mwpc.wiener_hv",
+        "mpd.bmn.adc_bman_beam",
+        "mpd.gem.wiener_lv.multi_lvstatus",
+        "mpd.gem.wiener_hv.multi_hvstatus",
+        "mpd.ecal.hv_new.multi_ecal_hv",
+        "mpd.bmn.adc_dch_fan_status",
+        "opc.dch.hv",
+        "mpd.dch.wiener_lv.multi_lvstatus",
+        "mpd.daq.bmn_switch",
+        "mpd.daq.crates",
+        "mpd.t0t.jpts.multi_hv_state1",
+        "mpd.t0t.jpts.multi_hv_state2",
+        "mpd.t0t.jpts.multi_t0t",
+        "mpd.tof400.preamp_bmn1",
+        "mpd.tof400.preamp_bmn2",
+        "mpd.tof400.preamp_bmn3",
+        "mpd.tof400.preamp_bmn4",
+        "mpd.tof400.preamp_bmn5",
+        "mpd.tof400.hv.multi_tof400_hv",
+        "mpd.tof400.preamp_bmn6",
+        "mpd.tof700.temp",
+        "mpd.tof700.hv_5000.multi_tof700_hv_5000",
+        "mpd.tof700.hv_5001.multi_tof700_hv_5001",
+        "mpd.tof700.hv_5002.multi_tof700_hv_5002",
+        "mpd.tof700.hv_5003.multi_tof700_hv_5003",
+        "mpd.t0t.jpts.multi_tou_state",
+        "mpd.sts.hv.multi_hvstatus",
+        "mpd.zdc.position_sys",
+        "mpd.zdc.hv.multi_zdc_hv"
+      ]
+    },
+    "daq": {
+      "crates": [
+        "crate34",
+        "crate33",
+        "crate37",
+        "crate39",
+        "crate38",
+        "crate40",
+        "crate60",
+        "crate61",
+        "crate62",
+        "crate63",
+        "bmn-vme-c10",
+        "bmn-vme-1",
+        "bmn-vme-2",
+        "bmn-vme-3",
+        "bmn-vme-11",
+        "bmn-vme-4",
+        "bmn-vme-5",
+        "bmn-vme-6",
+        "bmn-vme-7",
+        "bmn-vme-8",
+        "bmn-vme-9",
+        "bmn-vme-10",
+        "bmn-daq-vme-1",
+        "bmn-dch-vme-1",
+        "bmn-dch-vme-2",
+        "bmn-dch-vme-3",
+        "bmn-dch-vme-4",
+        "bmn-ecal-vme-1",
+        "bmn-gem-vme-1",
+        "bmn-gem-vme-2",
+        "bmn-mwpc-vme-1",
+        "bmn-srs-vme-1",
+        "bmn-sts-vme-1",
+        "bmn-tof400-vme-1",
+        "bmn-tof400-vme-2",
+        "bmn-tof700-vme-1",
+        "bmn-tof700-vme-2",
+        "bmn-tof700-vme-3",
+        "bmn-tof700-vme-4",
+        "bmn-gem-vme-3",
+        "bmn-t0-vme-1",
+        "bmn-src-vme-1"
+      ],
+      "run_status": [
+        "run_number",
+        "multi_daq",
+        "run_index",
+        "daq_status",
+        "rcd_descr",
+        "rcd_ev_number",
+        "rcd_spill_count",
+        "rcd_state"
+      ],
+      "switches_201": [
+        "poepower-swhe201-222",
+        "poestatus-swhe201-222",
+        "connectionstatus-swhe201-222",
+        "poepower-swhe201-225",
+        "poestatus-swhe201-225",
+        "connectionstatus-swhe201-225"
+      ],
+      "bmn_switch": [
+        "poepower-bmn-sw-r1",
+        "poestatus-bmn-sw-r1",
+        "connectionstatus-bmn-sw-r1",
+        "poepower-bmn-sw-r2",
+        "poestatus-bmn-sw-r2",
+        "connectionstatus-bmn-sw-r2",
+        "poepower-bmn-sw-r3",
+        "poestatus-bmn-sw-r3",
+        "poepower-bmn-sw-r6",
+        "poestatus-bmn-sw-r6",
+        "poepower-bmn-sw-r8",
+        "poestatus-bmn-sw-r8",
+        "connectionstatus-bmn-sw-r3",
+        "connectionstatus-bmn-sw-r6",
+        "connectionstatus-bmn-sw-r8",
+        "operstatus-bmn-sw-r1",
+        "operstatus-bmn-sw-r3",
+        "operstatus-bmn-sw-r2",
+        "operstatus-bmn-sw-r6",
+        "operstatus-bmn-sw-r8"
+      ],
+      "elma_crates": [
+        "bmn-fhcal-vme-1-status",
+        "bmn-ecal-vme-1-status",
+        "bmn-zdc-vme-1-status",
+        "bmn-csc-vme-1-status"
+      ],
+      "runcontrol": [
+        "run_number",
+        "multi_daq",
+        "spill_count",
+        "ev_number"
+      ]
+    },
+    "switch": {
+      "bmn11": [
+        "poestatus-swhe-bmn-r3",
+        "poestatus-swhe-bmn-r6",
+        "poestatus-swhe-bmn-r7",
+        "poestatus-205",
+        "poestatus-swhe-bmn-r1",
+        "poestatus-swhe-bmn-r8",
+        "poepower-swhe-bmn-r3",
+        "poepower-swhe-bmn-r6",
+        "poepower-swhe-bmn-r7",
+        "poepower-swhe-bmn-r8",
+        "poepower-swhe-bmn-r1",
+        "poepower-swhe-bmn-r2",
+        "poestatus-swhe-bmn-r2"
+      ]
+    },
+    "tof400": {
+      "gas_bmn": [
+        "ai00",
+        "ai01",
+        "ai02",
+        "ai03",
+        "ao0",
+        "ao1",
+        "ao2",
+        "ao3"
+      ],
+      "preamp": [
+        "vplus_0",
+        "vminus_0",
+        "vdelta_0",
+        "vpower_0",
+        "dac_0",
+        "tboard_0",
+        "tgas_0",
+        "vplus_1",
+        "vminus_1",
+        "vdelta_1",
+        "vpower_1",
+        "dac_1",
+        "tboard_1",
+        "tgas_1",
+        "vplus_2",
+        "vminus_2",
+        "vdelta_2",
+        "vpower_2",
+        "dac_2",
+        "tboard_2",
+        "tgas_2",
+        "vplus_3",
+        "vminus_3",
+        "vdelta_3",
+        "vpower_3",
+        "dac_3",
+        "tboard_3",
+        "tgas_3",
+        "vplus_4",
+        "vminus_4",
+        "vdelta_4",
+        "vpower_4",
+        "dac_4",
+        "tboard_4",
+        "tgas_4"
+      ],
+      "wiener_hv": [
+        "sysmainswitch",
+        "sysstatus",
+        "module0-status",
+        "module0-event_status",
+        "module0-measured_voltage",
+        "module0-output_status",
+        "module0-measured_current",
+        "module0-measured_temperature",
+        "module0-output_switch",
+        "module0-set_voltage",
+        "module0-set_current",
+        "module1-status",
+        "module1-event_status",
+        "module1-output_status",
+        "module1-measured_voltage",
+        "module1-measured_current",
+        "module1-measured_temperature",
+        "module1-output_switch",
+        "module1-set_voltage",
+        "module1-set_current",
+        "module2-status",
+        "module2-event_status",
+        "module2-output_status",
+        "module2-measured_voltage",
+        "module2-measured_current",
+        "module2-measured_temperature",
+        "module2-output_switch",
+        "module2-set_voltage",
+        "module2-set_current",
+        "module3-status",
+        "module3-event_status",
+        "module3-output_status",
+        "module3-measured_voltage",
+        "module3-measured_current",
+        "module3-measured_temperature",
+        "module3-output_switch",
+        "module3-set_voltage",
+        "module3-set_current",
+        "module4-status",
+        "module4-event_status",
+        "module4-output_status",
+        "module4-measured_voltage",
+        "module4-measured_current",
+        "module4-measured_temperature",
+        "module4-output_switch",
+        "module4-set_voltage",
+        "module4-set_current",
+        "module5-status",
+        "module5-event_status",
+        "module5-output_status",
+        "module5-measured_voltage",
+        "module5-measured_current",
+        "module5-measured_temperature",
+        "module5-output_switch",
+        "module5-set_voltage",
+        "module5-set_current"
+      ],
+      "hv": [
+        "umes",
+        "uset",
+        "imes",
+        "iset"
+      ],
+      "preamp_bmn1": [
+        "vminus",
+        "tgas",
+        "vdelta",
+        "dac",
+        "tboard",
+        "vplus",
+        "vpower"
+      ],
+      "preamp_bmn2": [
+        "vdelta",
+        "tgas",
+        "vplus",
+        "vpower",
+        "vminus",
+        "tboard",
+        "dac"
+      ],
+      "preamp_bmn3": [
+        "vminus",
+        "dac",
+        "tgas",
+        "vpower",
+        "tboard",
+        "vdelta",
+        "vplus"
+      ],
+      "preamp_bmn4": [
+        "dac",
+        "vplus",
+        "vdelta",
+        "tgas",
+        "vpower",
+        "vminus",
+        "tboard"
+      ],
+      "preamp_bmn5": [
+        "dac",
+        "tboard",
+        "vplus",
+        "vdelta",
+        "tgas",
+        "vminus",
+        "vpower"
+      ],
+      "preamp_bmn6": [
+        "dac",
+        "vdelta",
+        "vminus",
+        "tboard",
+        "tgas",
+        "vpower",
+        "vplus"
+      ],
+      "wiener_hv_imes": [
+        "imes0",
+        "imes1",
+        "imes2",
+        "imes3",
+        "imes4",
+        "imes5"
+      ],
+      "gas_scales": [
+        "weight"
+      ],
+      "gas_sensors": [
+        "ch_raw0",
+        "ch_raw1",
+        "ch1",
+        "ch0"
+      ],
+      "wiener_lv": [
+        "module9-measured_temperature",
+        "module8-output_switch",
+        "module7-set_current",
+        "module7-output_switch",
+        "module7-measured_current",
+        "module8-measured_current",
+        "module9-output_status",
+        "module8-measured_voltage",
+        "module7-measured_voltage",
+        "module9-event_status",
+        "module8-event_status",
+        "module8-status",
+        "module8-output_status",
+        "module9-measured_current",
+        "module8-set_voltage",
+        "module7-status",
+        "module8-set_current",
+        "module7-measured_temperature",
+        "module9-status",
+        "module7-event_status",
+        "module7-output_status",
+        "module7-set_voltage",
+        "module8-measured_temperature",
+        "module9-measured_voltage",
+        "module9-output_switch",
+        "module9-set_voltage",
+        "module9-set_current"
+      ],
+      "sensor_202": [
+        "humidity",
+        "temperature"
+      ]
+    },
+    "scales": {
+      "caspb60": [
+        "weight"
+      ]
+    },
+    "gas_202": {
+      "mks_pac100": [
+        "ao0",
+        "ao1"
+      ]
+    },
+    "test_beam": {
+      "switch": [
+        "poepower-mpd-sw-r1",
+        "poestatus-mpd-sw-r1",
+        "connectionstatus-mpd-sw-r1",
+        "poepower-mpd-sw-r2",
+        "poestatus-mpd-sw-r2",
+        "connectionstatus-mpd-sw-r2"
+      ]
+    },
+    "crate": {
+      "new": [
+        "outputmeasurementsensevoltage"
+      ]
+    },
+    "sts": {
+      "adc1": [
+        "ch_raw0",
+        "ch0",
+        "ch_raw1",
+        "ch1",
+        "ch_raw2",
+        "ch2",
+        "ch_raw3",
+        "ch3",
+        "ch_raw4",
+        "ch4",
+        "ch_raw5",
+        "ch5",
+        "ch_raw6",
+        "ch6",
+        "ch_raw7",
+        "ch7",
+        "ch_raw8",
+        "ch8",
+        "ch_raw9",
+        "ch9",
+        "ch_raw10",
+        "ch10",
+        "ch_raw11",
+        "ch11",
+        "ch_raw12",
+        "ch12",
+        "ch_raw13",
+        "ch13",
+        "ch_raw14",
+        "ch14",
+        "ch_raw15",
+        "ch15",
+        "ch_raw16",
+        "ch16",
+        "ch_raw17",
+        "ch17",
+        "ch_raw18",
+        "ch18",
+        "ch_raw19",
+        "ch19"
+      ],
+      "hv": [
+        "chn",
+        "layer",
+        "plane_on",
+        "trip",
+        "i",
+        "u",
+        "u_stb",
+        "u_nom",
+        "multi_hvstatus"
+      ],
+      "adc2": [
+        "ch_raw0",
+        "ch0",
+        "ch_raw1",
+        "ch1",
+        "ch_raw2",
+        "ch2",
+        "ch_raw3",
+        "ch3",
+        "ch_raw4",
+        "ch4",
+        "ch_raw5",
+        "ch5",
+        "ch_raw6",
+        "ch6",
+        "ch_raw7",
+        "ch7",
+        "ch_raw8",
+        "ch8",
+        "ch_raw9",
+        "ch9",
+        "ch_raw10",
+        "ch10",
+        "ch_raw11",
+        "ch11",
+        "ch_raw12",
+        "ch12",
+        "ch_raw13",
+        "ch13",
+        "ch_raw14",
+        "ch14",
+        "ch_raw15",
+        "ch15",
+        "ch_raw16",
+        "ch16",
+        "ch_raw17",
+        "ch17",
+        "ch_raw18",
+        "ch18",
+        "ch_raw19",
+        "ch19"
+      ],
+      "lv": [
+        "multi_lvstatus"
+      ],
+      "adc1_proxy": [
+        "temp"
+      ],
+      "adc2_proxy": [
+        "temp"
+      ]
+    },
+    "mwpc": {
+      "wiener_hv": [
+        "module2-status",
+        "module2-event_status",
+        "module2-output_status",
+        "module2-measured_voltage",
+        "module2-measured_current",
+        "module2-measured_temperature",
+        "module2-output_switch",
+        "module2-set_voltage",
+        "module2-set_current",
+        "module3-status",
+        "module3-event_status",
+        "module3-output_status",
+        "module3-measured_voltage",
+        "module3-measured_temperature",
+        "module3-measured_current",
+        "module3-output_switch",
+        "module3-set_voltage",
+        "module3-set_current"
+      ]
+    }
+  },
+  "sys": {
+    "tg_test": {
+      "1": [
+        "double_scalar",
+        "long64_scalar",
+        "long64_spectrum_ro"
+      ]
+    }
+  },
+  "bmn": {
+    "daq": {
+      "ups": [
+        "batterystatus",
+        "batterycapacity",
+        "batterytemperature",
+        "batteryactualvoltage",
+        "batteryruntimeremaining",
+        "inputphase",
+        "inputlinevoltage",
+        "inputmaxlinevoltage",
+        "inputminlinevoltage",
+        "inputfrequency",
+        "inputlinefailcause",
+        "outputphase",
+        "outputstatus",
+        "outputvoltage",
+        "outputfrequency",
+        "outputload",
+        "outputcurrent",
+        "outputactivepower",
+        "varating"
+      ]
+    }
+  },
+  "opc": {
+    "tpc": {
+      "hv": [
+        "iset_board04",
+        "iset_board05",
+        "vset_board04",
+        "vset_board05",
+        "imon_board04",
+        "imon_board05",
+        "vmon_board04",
+        "vmon_board05"
+      ]
+    },
+    "dch": {
+      "hv": [
+        "iset_board04",
+        "iset_board05",
+        "vset_board04",
+        "vset_board05",
+        "imon_board04",
+        "imon_board05",
+        "vmon_board04",
+        "vmon_board05"
+      ]
+    }
+  },
+  "misc": {
+    "pir230e": {
+      "r316": [
+        "temperature",
+        "humidity"
+      ]
+    }
+  }
+}

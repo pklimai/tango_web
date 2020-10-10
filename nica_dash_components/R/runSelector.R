@@ -1,8 +1,8 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-runSelector <- function(id=NULL, availableRuns=NULL, selectedRun=NULL, selectedTimeInterval=NULL) {
+runSelector <- function(id=NULL, availableRuns=NULL, selectedRun=NULL, selectedTimeInterval=NULL, style=NULL) {
     
-    props <- list(id=id, availableRuns=availableRuns, selectedRun=selectedRun, selectedTimeInterval=selectedTimeInterval)
+    props <- list(id=id, availableRuns=availableRuns, selectedRun=selectedRun, selectedTimeInterval=selectedTimeInterval, style=style)
     if (length(props) > 0) {
         props <- props[!vapply(props, is.null, logical(1))]
     }
@@ -10,7 +10,7 @@ runSelector <- function(id=NULL, availableRuns=NULL, selectedRun=NULL, selectedT
         props = props,
         type = 'RunSelector',
         namespace = 'nica_dash_components',
-        propNames = c('id', 'availableRuns', 'selectedRun', 'selectedTimeInterval'),
+        propNames = c('id', 'availableRuns', 'selectedRun', 'selectedTimeInterval', 'style'),
         package = 'nicaDashComponents'
         )
 

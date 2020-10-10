@@ -72,6 +72,13 @@
           "computed": false
         }
       },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": ""
+      },
       "setProps": {
         "type": {
           "name": "func"
@@ -99,9 +106,12 @@
           "value": {
             "name": "objectOf",
             "value": {
-              "name": "arrayOf",
+              "name": "objectOf",
               "value": {
-                "name": "string"
+                "name": "arrayOf",
+                "value": {
+                  "name": "string"
+                }
               }
             }
           }
@@ -109,23 +119,38 @@
         "required": true,
         "description": ""
       },
-      "selectedParam": {
+      "dictionary": {
         "type": {
-          "name": "shape",
+          "name": "arrayOf",
           "value": {
-            "domain": {
-              "name": "string",
-              "required": false
-            },
-            "family": {
-              "name": "string",
-              "required": false
-            },
-            "member": {
-              "name": "string",
-              "required": false
+            "name": "shape",
+            "value": {
+              "name": {
+                "name": "string",
+                "required": false
+              },
+              "param": {
+                "name": "custom",
+                "raw": "TangoParam",
+                "required": false
+              }
             }
           }
+        },
+        "required": false,
+        "description": ""
+      },
+      "selectedParam": {
+        "type": {
+          "name": "custom",
+          "raw": "TangoParam"
+        },
+        "required": false,
+        "description": ""
+      },
+      "style": {
+        "type": {
+          "name": "object"
         },
         "required": false,
         "description": ""

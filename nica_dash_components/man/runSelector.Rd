@@ -11,7 +11,7 @@
 
 \usage{
 runSelector(id=NULL, availableRuns=NULL, selectedRun=NULL,
-selectedTimeInterval=NULL)
+selectedTimeInterval=NULL, style=NULL)
 }
 
 \arguments{
@@ -31,6 +31,8 @@ those elements have the following types:
 those elements have the following types:
   - start (character; optional)
   - end (character; optional). }
+
+\item{style}{Named list. }
 }
 
 \value{named list of JSON elements corresponding to React.js properties and their values}
