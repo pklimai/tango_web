@@ -51,10 +51,12 @@ def make_layout():
                             id="param-selector",
                             style=_selectors_style,
                             availableParams=_get_available_attrs(),
-                            dictionary=[{
-                                'name': "test_param",
-                                'param': dict(domain="mpd", family="sts", member="hv", name="i")
-                            }],
+                            dictionary=[
+                                # {
+                                #     'name': "test_param",
+                                #     'param': dict(domain="mpd", family="sts", member="hv", name="i")
+                                # }
+                            ],
                         )
                     )
                 ),
@@ -62,8 +64,9 @@ def make_layout():
                     children=nica_dash_components.RunSelector(
                         id="run-selector",
                         style=_selectors_style,
-                        selectedRun=dict(period=7, number=5158),
-                        availableRuns=_get_available_runs())
+                        # selectedRun=dict(period=7, number=5158),
+                        availableRuns=_get_available_runs()
+                    )
                 )),
                 dbc.Row(children=dbc.Col(
                     style={
