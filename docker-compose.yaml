@@ -1,0 +1,9 @@
+version: '3.1'
+
+services:
+
+  tango-web:
+    build:
+      context: .
+    ports:
+      - 8050:8050
