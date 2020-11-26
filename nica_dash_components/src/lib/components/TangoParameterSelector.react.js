@@ -165,15 +165,25 @@ export default function TangoParameterSelector(props) {
                                 id="option"
                                 value={option}
                                 onChange={e => {
-                                    const {domain, family, member, name} = dictionary
+                                    if(!e.target.value) {
+                                        setDomain("")
+                                        setFamily("")
+                                        setMember("")
+                                        setName("")
+                                        setProps({selectedParam: undefined})
+
+                                    } else {
+                                        const {domain, family, member, name} = dictionary
                                             .find(option => option.name === e.target.value)
                                             .param
-                                    setDomain(domain)
-                                    setFamily(family)
-                                    setMember(member)
-                                    setName(name)
+                                        setDomain(domain)
+                                        setFamily(family)
+                                        setMember(member)
+                                        setName(name)
 
-                                    setProps({selectedParam: {domain, family, member, name}})
+                                        setProps({selectedParam: {domain, family, member, name}})
+                                    }
+
 
                                     setOption(e.target.value)
                                 }}
