@@ -22,7 +22,6 @@
     "@material-ui/pickers": "^3.2.10",
     "date-fns": "^2.15.0",
     "lodash": "^4.17.20",
-    "moment": "^2.27.0",
     "ramda": "^0.26.1"
   },
   "devDependencies": {

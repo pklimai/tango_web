@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
+import json
 import plotly.graph_objs as go
 from dash.dependencies import Input, Output, State
 
+import dash_extensions as de
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
@@ -23,15 +25,15 @@ _container_style = {
 }
 
 _toolbar_style = {
-    "justify-content": 'center',
-    "text-align": 'center',
+    "justifyContent": 'center',
+    "textAlign": 'center',
     "color": "white",
     "width": "100%"
 }
 _selectors_style = {
-    "min-width": "250px",
+    "minWidth": "250px",
     "margin": "10px",
-    "border-radius": "0.6em"
+    "borderRadius": "0.6em"
 }
 _button_style = {"margin": "5px"}
 
@@ -41,61 +43,63 @@ def make_layout():
         fluid=1,
         style=_container_style,
         children=[
-        dbc.Navbar(color='primary', children=[html.H3(
-            "BM@N Slow Control Viewer",
-            style=_toolbar_style)]),
-        dbc.Row([
-            dbc.Col(xs=2, children=[
-                dbc.Row(children=dbc.Col(
-                    children=nica_dash_components.TangoParameterSelector(
+            de.Keyboard(id="keyboard"),
+            dbc.Navbar(color='primary', children=[html.H3(
+                "BM@N Slow Control Viewer",
+                style=_toolbar_style)]),
+            dbc.Row([
+                dbc.Col(xs=2, style={"paddingRight": "0px"}, children=[
+                    dbc.Row(children=dbc.Col(
+                        children=nica_dash_components.TangoParameterSelector(
                             id="param-selector",
                             style=_selectors_style,
                             availableParams=_get_available_attrs(),
                             dictionary=[
-                                # {
-                                #     'name': "test_param",
-                                #     'param': dict(domain="mpd", family="sts", member="hv", name="i")
-                                # }
+                                {
+                                    'name': "gem_hv",
+                                    'param': dict(domain="mpd", family="gem", member="wiener_hv", name="u")
+                                }
                             ],
                         )
                     )
-                ),
-                dbc.Row(children=dbc.Col(
-                    children=nica_dash_components.RunSelector(
-                        id="run-selector",
-                        style=_selectors_style,
-                        # selectedRun=dict(period=7, number=5158),
-                        availableRuns=_get_available_runs()
-                    )
-                )),
-                dbc.Row(children=dbc.Col(
-                    style={
-                        "justify-content": 'center',
-                        "text-align": 'center',
+                    ),
+                    dbc.Row(children=dbc.Col(
+                        children=nica_dash_components.RunSelector(
+                            id="run-selector",
+                            style=_selectors_style,
+                            # selectedRun=dict(period=7, number=5158),
+                            availableRuns=_get_available_runs()
+                        )
+                    )),
+                    dbc.Row(children=dbc.Col(
+                        style={
+                            "justifyContent": 'center',
+                            "textAlign": 'center',
 
-                    },
-                    children=[
-                        dbc.Button(id="button-show", children="SHOW", style=_button_style),
+                        },
+                        children=[
+                            dbc.Button(id="button-show", children="SHOW", style=_button_style),
                         ]
                     )
-                )
-            ]),
-            dbc.Col(xs=10, children=[
-                sd_material_ui.Card(
-                    id="graph-card",
-                    style=_selectors_style,
-                    headerStyle={
-                        "justify-content": 'center',
-                        "text-align": 'center'
-                    },
-                    expanded=True,
-                    children=[dcc.Graph(
-                        id="live-update-graph",
+                    )
+                ]),
+                dbc.Col(xs=10, style={"paddingLeft": "0px"}, children=[
+                    sd_material_ui.Card(
+                        id="graph-card",
+                        style=_selectors_style,
+                        headerStyle={
+                            "justifyContent": 'center',
+                            "textAlign": 'center'
+                        },
+                        expanded=True,
+                        showExpandableButton=False,
+                        children=[dcc.Graph(
+                            id="live-update-graph",
 
-                    )])
-            ]),
+                        )])
+                ]),
+            ])
         ])
-    ])
 
 
 app.layout = make_layout()
@@ -107,6 +111,8 @@ app.layout = make_layout()
 def update_timerange(selected_run, selected_time_interval):
     if selected_run:
         run = _get_run(selected_run['period'], selected_run['number'])
+        if not run:
+            return selected_time_interval
         return dict(start=run.start_datetime, end=run.end_datetime)
     return selected_time_interval
 
@@ -126,11 +132,20 @@ def set_graph_title(n_clicks, selected_param) -> str:
     return "{}/{}/{}/{}".format(domain, family, member, name)
 
 
+@app.callback(Output('button-show', 'disabled'),
+              [Input('run-selector', 'selectedTimeInterval'),
+               Input('param-selector', 'selectedParam')])
+def enable_show_button(selected_time_interval, selected_param):
+    return (not selected_param) or (not selected_time_interval)
+
+
 @app.callback(Output('live-update-graph', 'figure'),
               [Input('button-show', 'n_clicks')],
               (State('run-selector', 'selectedTimeInterval'),
                State('param-selector', 'selectedParam'),))
 def draw_group(n_clicks, selected_time_interval, selected_param) -> go.Figure:
+    # print(json.dumps(event))
+
     if n_clicks == 0 or (not selected_param) or (not selected_time_interval):
         return go.Figure(layout=go.Layout(
             margin=dict(l=50, r=50, b=50, t=50, pad=4),

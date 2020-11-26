@@ -7,8 +7,6 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Switch from '@material-ui/core/Switch';
-import CardActions from '@material-ui/core/CardActions';
-import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
@@ -16,6 +14,14 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Input from '@material-ui/core/Input';
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import _ from 'lodash'
+
+
+class DateFnsUtilsCustom extends DateFnsUtils {
+    constructor() {
+        super();
+        this.dateTime12hFormat = "dd.MM.yyyy hh:mm:ss"
+    }
+}
 
 
 /**
@@ -28,6 +34,7 @@ export default function RunSelector(props) {
 
     const [timeChecked, setTimeChecked] = React.useState(false)
     const [runNumber, setRunNumber] = React.useState("")
+    const [runNumberErr, setRunNumberErr] = React.useState(false)
     const [runPeriod, setRunPeriod] = React.useState("")
 
     const [startDT, setStartDT] = React.useState(new Date());
@@ -50,11 +57,11 @@ export default function RunSelector(props) {
 
     useEffect(() => {
         if (timeChecked) {
-            console.log({selectedTimeInterval: {start: startDT.toISOString(), end: endDT.toISOString()}});
+            // console.log({selectedTimeInterval: {start: startDT.toISOString(), end: endDT.toISOString()}});
             setProps({selectedTimeInterval: {start: startDT.toISOString(), end: endDT.toISOString()}})
         } else {
             if(runNumber && runPeriod) {
-                console.log({selectedRun: {number: Number(runNumber), period: Number(runPeriod)}});
+                // console.log({selectedRun: {number: Number(runNumber), period: Number(runPeriod)}});
                 setProps({selectedRun: {number: Number(runNumber), period: Number(runPeriod)}})
             }
         }
@@ -83,7 +90,7 @@ export default function RunSelector(props) {
                 { justifyContent: 'center', display: "grid", gridRowGap: "10px"}}>
                 {timeChecked?
                     <>
-                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <MuiPickersUtilsProvider utils={DateFnsUtilsCustom}>
                             <DateTimePicker
                                 label="Start Date"
                                 inputVariant="outlined"
@@ -100,8 +107,8 @@ export default function RunSelector(props) {
                     </>
                     :
                     <>
-                        <FormControl variant="outlined" style={{minWidth: 120}}>
-                            <InputLabel id="run-period-label">Period</InputLabel>
+                        <FormControl variant="outlined" style={{minWidth: 250}}>
+                            <InputLabel id="run-period-label">BM@N Period</InputLabel>
                             <Select
                                 labelId="run-period-label"
                                 id="run-period"
@@ -110,20 +117,28 @@ export default function RunSelector(props) {
                                     setRunPeriod(e.target.value)
                                     setRunNumber("")
                                 }}
-                                label="Period"
+                                label="BM@N Period"
                             >
                                 <MenuItem value="">
                                     <em>None</em>
                                 </MenuItem>
-                                {availableRuns.map(run =>
+                                {availableRuns.sort().map(run =>
                                     <MenuItem key={run.period} value={run.period}>{run.period}</MenuItem>)}
                             </Select>
                         </FormControl>
-                        <FormControl variant="outlined" style={{minWidth: 120}}>
-                            <InputLabel id="run-number-label">Number</InputLabel>
+                        <FormControl variant="outlined" style={{minWidth: 250, marginTop: 10}}>
+                            <InputLabel id="run-number-label">Run Number {runNumberErr? "(not found)": ""}</InputLabel>
                             <Input type="number"  placeholder={availableNumbers.length?
                                 `${_.min(availableNumbers)}...${_.max(availableNumbers)}` : ''}
-                                   value={runNumber} onChange={e => setRunNumber(e.target.value)}
+                                   value={runNumber} onChange={
+                                       e => {
+                                           let val = e.target.value
+                                           setRunNumber(val)
+                                           setRunNumberErr(
+                                               val !== "" &&  !(availableNumbers.includes(Number(val))))
+                                       }
+                                   }
+                                   error={runNumberErr}
                             />
                         </FormControl>
                     </>

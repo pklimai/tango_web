@@ -20,8 +20,9 @@ flask-caching = "*"
 mypy-extensions = "*"
 dash-bootstrap-components = "*"
 ipython = "==7.16.1"
-sd-material-ui = "*"
+sd-material-ui = "==3.2.0"
 pyyaml = {editable = true,path = "./nica_dash_components"}
+dash-extensions = "*"
 
 [requires]
 python_version = "3.6"

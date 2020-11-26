@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
@@ -39,8 +37,6 @@ export default function TangoParameterSelector(props) {
     const [isCustom, setIsCustom] = React.useState(true)
 
     useEffect(() => {
-
-        console.log(selectedParam);
 
         if(!selectedParam) {
             setDomain("")
@@ -78,7 +74,7 @@ export default function TangoParameterSelector(props) {
             <CardContent style={
                 { justifyContent: 'center', display: "grid", gridRowGap: "10px"}}>
                 {
-                    isCustom? <> <FormControl variant="outlined" style={{minWidth: 120}}>
+                    isCustom? <> <FormControl variant="outlined" style={{minWidth: 250}}>
                         <InputLabel id="domain-label">Domain</InputLabel>
                         <Select
                             labelId="domain-label"
@@ -95,12 +91,12 @@ export default function TangoParameterSelector(props) {
                             <MenuItem value="">
                                 <em>None</em>
                             </MenuItem>
-                            {availableDomains.map(domain =>
+                            {availableDomains.sort().map(domain =>
                                 <MenuItem key={domain} value={domain}>{domain}</MenuItem>)
                             }
                         </Select>
                     </FormControl>
-                        <FormControl variant="outlined" style={{minWidth: 120}}>
+                        <FormControl variant="outlined" style={{minWidth: 250}}>
                             <InputLabel id="family-label">Family</InputLabel>
                             <Select
                                 labelId="family-label"
@@ -116,12 +112,12 @@ export default function TangoParameterSelector(props) {
                                 <MenuItem value="">
                                     <em>None</em>
                                 </MenuItem>
-                                {availableFamilies.map(family =>
+                                {availableFamilies.sort().map(family =>
                                     <MenuItem key={family} value={family}>{family}</MenuItem>)
                                 }
                             </Select>
                         </FormControl>
-                        <FormControl variant="outlined" style={{minWidth: 120}}>
+                        <FormControl variant="outlined" style={{minWidth: 250}}>
                             <InputLabel id="member-label">Member</InputLabel>
                             <Select
                                 labelId="member-label"
@@ -136,12 +132,12 @@ export default function TangoParameterSelector(props) {
                                 <MenuItem value="">
                                     <em>None</em>
                                 </MenuItem>
-                                {availableMembers.map(member =>
+                                {availableMembers.sort().map(member =>
                                     <MenuItem key={member} value={member}>{member}</MenuItem>)
                                 }
                             </Select>
                         </FormControl>
-                        <FormControl variant="outlined" style={{minWidth: 120}}>
+                        <FormControl variant="outlined" style={{minWidth: 250}}>
                             <InputLabel id="name-label">Name</InputLabel>
                             <Select
                                 labelId="name-label"
@@ -156,14 +152,14 @@ export default function TangoParameterSelector(props) {
                                 <MenuItem value="">
                                     <em>None</em>
                                 </MenuItem>
-                                {availableNames.map(name =>
+                                {availableNames.sort().map(name =>
                                     <MenuItem key={name} value={name}>{name}</MenuItem>)
                                 }
                             </Select>
                         </FormControl>
                     </> : <>
-                        <FormControl variant="outlined" style={{minWidth: 120}}>
-                            <InputLabel id="option-label">Option</InputLabel>
+                        <FormControl variant="outlined" style={{minWidth: 250}}>
+                            <InputLabel id="option-label">Alias</InputLabel>
                             <Select
                                 labelId="option-label"
                                 id="option"
@@ -181,12 +177,12 @@ export default function TangoParameterSelector(props) {
 
                                     setOption(e.target.value)
                                 }}
-                                label="Option"
+                                label="Alias"
                             >
                                 <MenuItem value="">
                                     <em>None</em>
                                 </MenuItem>
-                                {availableOptions.map(option =>
+                                {availableOptions.sort().map(option =>
                                     <MenuItem key={option} value={option}>{option}</MenuItem>)
                                 }
                             </Select>
