@@ -35,7 +35,7 @@ _selectors_style = {
     "margin": "10px",
     "borderRadius": "0.6em"
 }
-_button_style = {"margin": "5px"}
+_button_style = {"margin": "15px"}
 
 
 def make_layout():
@@ -78,7 +78,9 @@ def make_layout():
 
                         },
                         children=[
-                            dbc.Button(id="button-show", children="SHOW", style=_button_style),
+                            dbc.Button(id="button-reset", children="RESET", style=_button_style, href="/", external_link=True),
+                            dbc.Button(id="button-show", children="SHOW", style=_button_style)
+                            # html.A(html.Button('Refresh Data'),href='/')
                         ]
                     )
                     )
