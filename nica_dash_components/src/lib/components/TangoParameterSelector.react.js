@@ -159,7 +159,7 @@ export default function TangoParameterSelector(props) {
                         </FormControl>
                     </> : <>
                         <FormControl variant="outlined" style={{minWidth: 250}}>
-                            <InputLabel id="option-label">Alias</InputLabel>
+                            <InputLabel id="option-label">Parameter (Alias)</InputLabel>
                             <Select
                                 labelId="option-label"
                                 id="option"
@@ -187,7 +187,7 @@ export default function TangoParameterSelector(props) {
 
                                     setOption(e.target.value)
                                 }}
-                                label="Alias"
+                                label="Parameter (Alias)"
                             >
                                 <MenuItem value="">
                                     <em>None</em>
