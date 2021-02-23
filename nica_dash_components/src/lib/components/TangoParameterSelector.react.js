@@ -74,7 +74,7 @@ export default function TangoParameterSelector(props) {
             <CardContent style={
                 { justifyContent: 'center', display: "grid", gridRowGap: "10px"}}>
                 {
-                    isCustom? <> <FormControl variant="outlined" style={{minWidth: 250}}>
+                    isCustom? <> <FormControl variant="outlined" style={{minWidth: 230}}>
                         <InputLabel id="domain-label">Domain</InputLabel>
                         <Select
                             labelId="domain-label"
@@ -96,7 +96,7 @@ export default function TangoParameterSelector(props) {
                             }
                         </Select>
                     </FormControl>
-                        <FormControl variant="outlined" style={{minWidth: 250}}>
+                        <FormControl variant="outlined" style={{minWidth: 230}}>
                             <InputLabel id="family-label">Family</InputLabel>
                             <Select
                                 labelId="family-label"
@@ -117,7 +117,7 @@ export default function TangoParameterSelector(props) {
                                 }
                             </Select>
                         </FormControl>
-                        <FormControl variant="outlined" style={{minWidth: 250}}>
+                        <FormControl variant="outlined" style={{minWidth: 230}}>
                             <InputLabel id="member-label">Member</InputLabel>
                             <Select
                                 labelId="member-label"
@@ -137,7 +137,7 @@ export default function TangoParameterSelector(props) {
                                 }
                             </Select>
                         </FormControl>
-                        <FormControl variant="outlined" style={{minWidth: 250}}>
+                        <FormControl variant="outlined" style={{minWidth: 230}}>
                             <InputLabel id="name-label">Name</InputLabel>
                             <Select
                                 labelId="name-label"
@@ -158,7 +158,7 @@ export default function TangoParameterSelector(props) {
                             </Select>
                         </FormControl>
                     </> : <>
-                        <FormControl variant="outlined" style={{minWidth: 250}}>
+                        <FormControl variant="outlined" style={{minWidth: 230}}>
                             <InputLabel id="option-label">Parameter (Alias)</InputLabel>
                             <Select
                                 labelId="option-label"

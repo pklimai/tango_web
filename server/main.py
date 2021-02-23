@@ -92,7 +92,6 @@ def make_layout():
                         showExpandableButton=False,
                         children=[dcc.Graph(
                             id="live-update-graph",
-
                         )])
                 ]),
             ])

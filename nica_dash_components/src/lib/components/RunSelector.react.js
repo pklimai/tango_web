@@ -109,7 +109,7 @@ export default function RunSelector(props) {
                     </>
                     :
                     <>
-                        <FormControl variant="outlined" style={{minWidth: 250}}>
+                        <FormControl variant="outlined" style={{minWidth: 230}}>
                             <InputLabel id="run-period-label">BM@N Period</InputLabel>
                             <Select
                                 labelId="run-period-label"
@@ -128,7 +128,7 @@ export default function RunSelector(props) {
                                     <MenuItem key={run.period} value={run.period}>{run.period}</MenuItem>)}
                             </Select>
                         </FormControl>
-                        <FormControl variant="outlined" style={{minWidth: 250, marginTop: 10}}>
+                        <FormControl variant="outlined" style={{minWidth: 230, marginTop: 10}}>
                             <InputLabel id="run-number-label">Run Number {runNumberErr? "(not found)": ""}</InputLabel>
                             <Input type="number"  placeholder={availableNumbers.length?
                                 `${_.min(availableNumbers)}...${_.max(availableNumbers)}` : ''}
