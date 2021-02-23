@@ -15,7 +15,7 @@ import nica_dash_components
 from server.utils import _get_available_runs
 
 from server import app
-from server.config import DEBUG, PORT, HOST
+from server.config import DEBUG, PORT, HOST, ALIASES
 from server.typings import ScatterPlots
 from server.utils import _get_run, _get_attrs_for_params, get_values, _get_available_attrs, prepare_datetime
 
@@ -54,12 +54,7 @@ def make_layout():
                             id="param-selector",
                             style=_selectors_style,
                             availableParams=_get_available_attrs(),
-                            dictionary=[
-                                {
-                                    'name': "gem_hv",
-                                    'param': dict(domain="mpd", family="gem", member="wiener_hv", name="u")
-                                }
-                            ],
+                            dictionary=ALIASES,
                         )
                     )
                     ),

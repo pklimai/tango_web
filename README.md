@@ -1,3 +1,27 @@
+# BM@N Slow Control Viewer
+
+Slow control system viewer for BM@N Tango database.
+
+## Configuration
+
+The configuration must be provided in `server/config.py` and/or `server/config_local.py`
+
+Example of [config_local.py](server/config_local.py):
+```python
+DEBUG=True
+
+HDBPP_CONNECTION = "mysql+pymysql://user:user_pass@192.168.0.12/hdbpp"
+BMN_CONNECTION = "postgresql://user:user_pass@192.168.0.12/bmn_db"
+
+ALIASES = [
+   {
+      'name': "gem_hv",
+      'param': dict(domain="mpd", family="gem", member="wiener_hv", name="u")
+   }
+]
+```
+Note how parameter aliases are specified using `ALIASES` dictionary.
+
 ## Run in docker
 ```bash
 # build container
@@ -7,14 +31,6 @@ docker run --rm -it \
 -v $PWD/server/config_local.py:/root/bmn-visualisation/server/config_local.py \
 -p 8050:8050 \
 bmn-visualization
-
-```
-Example of [config_local.py](server/config_local.py):
-```python
-DEBUG=True
-
-HDBPP_CONNECTION = "mysql+pymysql://user:user_pass@192.168.0.12/hdbpp"
-BMN_CONNECTION = "postgresql://user:user_pass@192.168.0.12/bmn_db"
 ```
 
 ## Testing
@@ -41,21 +57,21 @@ BMN_CONNECTION = "postgresql://user:user_pass@192.168.0.12/bmn_db"
    ./pull_db.sh
    ```
 
-1. Install [docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
+3. Install [docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
 
-2. Install docker-compose
+4. Install docker-compose
     ```bash
    sudo apt install docker-compose
    ```
    
-3. Initialize database environment
+5. Initialize database environment
    ```bash
    cd testing
    sudo rm -rf $PWD/db/data/* && sudo docker-compose rm # reinitialise database
 
    sudo docker-compose up
    ```
-4. check admin page
+6. Check admin page
    - mysql: http://localhost:8080 (type=MySQL, server = "mysql", user:password is user:user_pass;
         type=PostgreSQL, server = "postgres", user:password is user:user_pass)
    
