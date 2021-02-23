@@ -19,7 +19,7 @@ import _ from 'lodash'
 class DateFnsUtilsCustom extends DateFnsUtils {
     constructor() {
         super();
-        this.dateTime12hFormat = "dd.MM.yyyy hh:mm:ss"
+        this.dateTime24hFormat = "dd.MM.yyyy HH:mm:ss"
     }
 }
 
@@ -93,12 +93,14 @@ export default function RunSelector(props) {
                         <MuiPickersUtilsProvider utils={DateFnsUtilsCustom}>
                             <DateTimePicker
                                 label="Start Date"
+                                ampm={false}
                                 inputVariant="outlined"
                                 value={startDT}
                                 onChange={setStartDT}
                             />
                             <DateTimePicker
                                 label="End Date"
+                                ampm={false}
                                 inputVariant="outlined"
                                 value={endDT}
                                 onChange={setEndDT}
