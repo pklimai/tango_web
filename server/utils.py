@@ -31,7 +31,7 @@ def _get_available_runs():
         if run.run_period.period_number not in available_runs:
             available_runs[run.run_period.period_number] = []
         available_runs[run.run_period.period_number].append(run.run_number)
-    return [dict(period=r, numbers=available_runs[r]) for r in available_runs]
+    return [dict(period=r, numbers=available_runs[r]) for r in sorted(available_runs.keys(), reverse=True)]
 
 
 @cache.memoize(timeout=CACHE_TIMEOUT_SEC)
