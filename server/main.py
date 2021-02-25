@@ -8,7 +8,7 @@ import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 
-import sd_material_ui
+# import sd_material_ui
 
 import nica_dash_components
 
@@ -47,54 +47,63 @@ def make_layout():
             dbc.Navbar(color='primary', children=[html.H3(
                 "BM@N Slow Control Viewer",
                 style=_toolbar_style)]),
-            dbc.Row([
-                dbc.Col(xs=2, style={"paddingRight": "0px"}, children=[
-                    dbc.Row(children=dbc.Col(
-                        children=nica_dash_components.TangoParameterSelector(
-                            id="param-selector",
-                            style=_selectors_style,
-                            availableParams=_get_available_attrs(),
-                            dictionary=ALIASES,
-                        )
-                    )
-                    ),
-                    dbc.Row(children=dbc.Col(
-                        children=nica_dash_components.RunSelector(
-                            id="run-selector",
-                            style=_selectors_style,
-                            # selectedRun=dict(period=7, number=5158),
-                            availableRuns=_get_available_runs()
-                        )
-                    )),
-                    dbc.Row(children=dbc.Col(
-                        style={
-                            "justifyContent": 'center',
-                            "textAlign": 'center',
+            dbc.Row(style={"display": "flex", "width": "100%"},
+                    children=[
+                        dbc.Col(style={"paddingRight": "0px", "minWidth": "270px", "maxWidth": "330px"}, children=[
+                            dbc.Row(children=dbc.Col(
+                                children=nica_dash_components.TangoParameterSelector(
+                                    id="param-selector",
+                                    style=_selectors_style,
+                                    availableParams=_get_available_attrs(),
+                                    dictionary=ALIASES,
+                                )
+                            )
+                            ),
+                            dbc.Row(children=dbc.Col(
+                                children=nica_dash_components.RunSelector(
+                                    id="run-selector",
+                                    style=_selectors_style,
+                                    # selectedRun=dict(period=7, number=5158),
+                                    availableRuns=_get_available_runs()
+                                )
+                            )),
+                            dbc.Row(children=dbc.Col(
+                                style={
+                                    "justifyContent": 'center',
+                                    "textAlign": 'center',
 
-                        },
-                        children=[
-                            dbc.Button(id="button-reset", children="RESET", style=_button_style, href="/", external_link=True),
-                            dbc.Button(id="button-show", children="SHOW", style=_button_style)
-                            # html.A(html.Button('Refresh Data'),href='/')
-                        ]
-                    )
-                    )
-                ]),
-                dbc.Col(xs=10, style={"paddingLeft": "0px"}, children=[
-                    sd_material_ui.Card(
-                        id="graph-card",
-                        style=_selectors_style,
-                        headerStyle={
-                            "justifyContent": 'center',
-                            "textAlign": 'center'
-                        },
-                        expanded=True,
-                        showExpandableButton=False,
-                        children=[dcc.Graph(
-                            id="live-update-graph",
-                        )])
-                ]),
-            ])
+                                },
+                                children=[
+                                    dbc.Button(id="button-reset", children="RESET", style=_button_style, href="/",
+                                               external_link=True),
+                                    dbc.Button(id="button-show", children="SHOW", style=_button_style)
+                                    # html.A(html.Button('Refresh Data'),href='/')
+                                ]
+                            )
+                            )
+                        ]),
+                        dbc.Col(style={"paddingLeft": "0px"}, children=[
+                            dbc.Card(
+                                style={
+                                    "width": "min(1200px, 100%)",
+                                    "margin": "10px",
+                                    "borderRadius": "0.6em",
+                                    "padding": "20px",
+                                    "display": "flex"
+                                },
+                                children=[
+                                    dcc.Textarea(
+                                        id="graph-card", value="Graph",
+                                        style={"border": 0, "contentEditable": False}
+                                    ),
+                                    dcc.Graph(
+                                        id="live-update-graph",
+                                        style={"width": "min(1200px, 100%)"}
+                                    )
+                                ]
+                            )
+                        ]),
+                    ])
         ])
 
 
@@ -113,7 +122,7 @@ def update_timerange(selected_run, selected_time_interval):
     return selected_time_interval
 
 
-@app.callback(Output('graph-card', 'headerTitle'),
+@app.callback(Output('graph-card', 'value'),
               [Input('button-show', 'n_clicks')],
               (State('param-selector', 'selectedParam'),))
 def set_graph_title(n_clicks, selected_param) -> str:
