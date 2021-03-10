@@ -65,7 +65,16 @@ export default function TangoParameterSelector(props) {
                     <Grid item>
                         <Switch
                             checked={isCustom}
-                            onChange={e => setIsCustom(e.target.checked)}
+                            onChange={e => {
+                                setIsCustom(e.target.checked)
+                                if (e.target.checked === false) {
+                                    setDomain("")
+                                    setFamily("")
+                                    setMember("")
+                                    setName("")
+                                    setOption(undefined)
+                                }
+                            }}
                         />
                     </Grid>
                     <Grid item>Custom</Grid>
@@ -171,7 +180,6 @@ export default function TangoParameterSelector(props) {
                                         setMember("")
                                         setName("")
                                         setProps({selectedParam: undefined})
-
                                     } else {
                                         const {domain, family, member, name} = dictionary
                                             .find(option => option.name === e.target.value)
@@ -180,11 +188,8 @@ export default function TangoParameterSelector(props) {
                                         setFamily(family)
                                         setMember(member)
                                         setName(name)
-
                                         setProps({selectedParam: {domain, family, member, name}})
                                     }
-
-
                                     setOption(e.target.value)
                                 }}
                                 label="Parameter (Alias)"
