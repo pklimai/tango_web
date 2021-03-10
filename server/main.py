@@ -8,8 +8,6 @@ import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 
-# import sd_material_ui
-
 import nica_dash_components
 
 from server.utils import _get_available_runs
@@ -92,9 +90,10 @@ def make_layout():
                                     "display": "flex"
                                 },
                                 children=[
-                                    dcc.Textarea(
-                                        id="graph-card", value="Graph",
-                                        style={"border": 0, "contentEditable": False}
+                                    html.H6(
+                                        id="graph-title",
+                                        children="Graph",
+                                        style={"text-align": "center"}
                                     ),
                                     dcc.Graph(
                                         id="live-update-graph",
@@ -122,7 +121,7 @@ def update_timerange(selected_run, selected_time_interval):
     return selected_time_interval
 
 
-@app.callback(Output('graph-card', 'value'),
+@app.callback(Output('graph-title', 'children'),
               [Input('button-show', 'n_clicks')],
               (State('param-selector', 'selectedParam'),))
 def set_graph_title(n_clicks, selected_param) -> str:
@@ -159,6 +158,7 @@ def draw_group(n_clicks, selected_time_interval, selected_param) -> go.Figure:
 
     start_dt = prepare_datetime(selected_time_interval["start"])
     end_dt = prepare_datetime(selected_time_interval["end"])
+    #print(start_dt, end_dt)
 
     domain = selected_param["domain"]
     family = selected_param["family"]
@@ -170,7 +170,9 @@ def draw_group(n_clicks, selected_time_interval, selected_param) -> go.Figure:
     data: ScatterPlots = []
 
     for attr in attrs:
+        # print(f"Getting attr {attr}...")
         graphs_data = get_values(attr[0], attr[1], start_dt, end_dt)
+        # print("   ...done")
         for graph_idx in graphs_data:
             graph_data = graphs_data[graph_idx]
             data += [go.Scatter(
