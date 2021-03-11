@@ -94,6 +94,7 @@ export default function TangoParameterSelector(props) {
                                 setFamily("")
                                 setMember("")
                                 setName("")
+                                setProps({selectedParam: {domain: e.target.value, family: "", member: "", name: ""}})
                             }}
                             label="Domain"
                         >
@@ -115,6 +116,7 @@ export default function TangoParameterSelector(props) {
                                     setFamily(e.target.value)
                                     setMember("")
                                     setName("")
+                                    setProps({selectedParam: {domain, family: e.target.value, member: "", name: ""}})
                                 }}
                                 label="Family"
                             >
@@ -135,6 +137,7 @@ export default function TangoParameterSelector(props) {
                                 onChange={e => {
                                     setMember(e.target.value)
                                     setName("")
+                                    setProps({selectedParam: {domain, family, member: e.target.value, name: ""}})
                                 }}
                                 label="Member"
                             >

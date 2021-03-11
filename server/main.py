@@ -140,7 +140,16 @@ def set_graph_title(n_clicks, selected_param) -> str:
               [Input('run-selector', 'selectedTimeInterval'),
                Input('param-selector', 'selectedParam')])
 def enable_show_button(selected_time_interval, selected_param):
-    return (not selected_param) or (not selected_time_interval)
+    # return (not selected_param) or (not selected_time_interval)
+    # print(f"In enable_show_button: {selected_param} {selected_time_interval}")
+    if (not selected_time_interval) or not selected_param:
+        return True
+    if (selected_param.get("domain") == "" or
+            selected_param.get("family") == "" or
+            selected_param.get("member") == "" or
+            selected_param.get("name") == ""):
+        return True
+    return False
 
 
 @app.callback(Output('live-update-graph', 'figure'),
@@ -158,7 +167,7 @@ def draw_group(n_clicks, selected_time_interval, selected_param) -> go.Figure:
 
     start_dt = prepare_datetime(selected_time_interval["start"])
     end_dt = prepare_datetime(selected_time_interval["end"])
-    #print(start_dt, end_dt)
+    # print(start_dt, end_dt)
 
     domain = selected_param["domain"]
     family = selected_param["family"]
