@@ -24,7 +24,7 @@ def prepare_datetime(time_str: str, offset_min: int) -> datetime:
     # if time_str.endswith("Z"): return utc2local(tparse(time_str))
     # return tparse(time_str)
     if time_str.endswith("Z"):
-        return datetime.fromtimestamp(tparse(time_str).timestamp() - offset_min*60)
+        return datetime.utcfromtimestamp(tparse(time_str).timestamp() - offset_min*60)
     return tparse(time_str)
 
 
