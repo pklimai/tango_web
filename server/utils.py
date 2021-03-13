@@ -13,15 +13,22 @@ from server.orm.hdbpp import AttConfDataType, AttConf
 from server.typings import DomainEntry
 
 
-def utc2local (utc):
+def utc2local(utc):
     epoch = mktime(utc.timetuple())
-    offset = datetime.fromtimestamp (epoch) - datetime.utcfromtimestamp (epoch)
+    offset = datetime.fromtimestamp(epoch) - datetime.utcfromtimestamp(epoch)
     return utc + offset
 
 
 def prepare_datetime(time_str: str) -> datetime:
     if time_str.endswith("Z"): return utc2local(tparse(time_str))
     return tparse(time_str)
+
+
+def shorten_dt(dt):
+    res = str(dt)
+    if res.endswith("+00:00"):
+        res = res[0:-6]
+    return res
 
 
 @cache.memoize(timeout=CACHE_TIMEOUT_SEC)
@@ -102,8 +109,8 @@ def _get_attrs(start: datetime, end: datetime) -> List[int]:
                 WHERE (data_time BETWEEN "{}" AND "{}") AND (att_conf_id IN ({}));
                 """.format(
                 table_name,
-                start_dt,
-                end_dt, ", ".join((str(i) for i in att_conf_ids)))
+                shorten_dt(start_dt),
+                shorten_dt(end_dt), ", ".join((str(i) for i in att_conf_ids)))
 
             values: List[int] = [v[0] for v in engine.execute(sql).fetchall()]
 
@@ -145,8 +152,9 @@ def get_values(
             WHERE (data_time BETWEEN "{}" AND "{}") AND att_conf_id = {};
         """.format(
             table_name,
-            start,
-            end, att_conf_id)
+            shorten_dt(start),
+            shorten_dt(end), att_conf_id)
+        print(sql)
         return {0: engine.execute(sql).fetchall()}
     elif 'array' in data_type.data_type:
         sql = """
@@ -155,8 +163,9 @@ def get_values(
                     WHERE (data_time BETWEEN "{}" AND "{}") AND att_conf_id = {};
                 """.format(
             table_name,
-            start,
-            end, att_conf_id)
+            shorten_dt(start),
+            shorten_dt(end), att_conf_id)
+        print(sql)
 
         data = engine.execute(sql).fetchall()
 

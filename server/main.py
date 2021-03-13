@@ -167,7 +167,9 @@ def draw_group(n_clicks, selected_time_interval, selected_param) -> go.Figure:
 
     start_dt = prepare_datetime(selected_time_interval["start"])
     end_dt = prepare_datetime(selected_time_interval["end"])
-    # print(start_dt, end_dt)
+
+    print(selected_time_interval)
+    print(start_dt, end_dt)
 
     domain = selected_param["domain"]
     family = selected_param["family"]
