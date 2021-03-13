@@ -12,15 +12,19 @@ from server.orm.bmn import Run
 from server.orm.hdbpp import AttConfDataType, AttConf
 from server.typings import DomainEntry
 
+# def utc2local(utc):
+#     epoch = mktime(utc.timetuple())
+#     offset = datetime.fromtimestamp(epoch) - datetime.utcfromtimestamp(epoch)
+#     return utc + offset
 
-def utc2local(utc):
-    epoch = mktime(utc.timetuple())
-    offset = datetime.fromtimestamp(epoch) - datetime.utcfromtimestamp(epoch)
-    return utc + offset
-
-
-def prepare_datetime(time_str: str) -> datetime:
-    if time_str.endswith("Z"): return utc2local(tparse(time_str))
+# e.g. tparse("2021-03-19T20:18:00.000Z") = datetime.datetime(2021, 3, 19, 20, 18, tzinfo=tzutc()) = tp
+# tp.timestamp() = 1616185080.0
+# datetime.datetime.fromtimestamp(1616185080.0) = datetime.datetime(2021, 3, 19, 23, 18)
+def prepare_datetime(time_str: str, offset_min: int) -> datetime:
+    # if time_str.endswith("Z"): return utc2local(tparse(time_str))
+    # return tparse(time_str)
+    if time_str.endswith("Z"):
+        return datetime.fromtimestamp(tparse(time_str).timestamp() - offset_min*60)
     return tparse(time_str)
 
 

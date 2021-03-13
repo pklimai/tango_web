@@ -12,7 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Input from '@material-ui/core/Input';
-import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import {DateTimePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import _ from 'lodash'
 
 
@@ -43,24 +43,29 @@ export default function RunSelector(props) {
     const availableNumbers = (availableRuns.find(run => run.period === runPeriod) || {numbers: []}).numbers
 
     useEffect(() => {
-        if(selectedRun) {
+        if (selectedRun) {
             setRunNumber(selectedRun.number)
             setRunPeriod(selectedRun.period)
         }
 
-        if(selectedTimeInterval) {
+        if (selectedTimeInterval) {
             setStartDT(new Date(selectedTimeInterval.start))
             setEndDT(new Date(selectedTimeInterval.end))
         }
     }, [selectedTimeInterval, selectedRun])
 
-
     useEffect(() => {
         if (timeChecked) {
             // console.log({selectedTimeInterval: {start: startDT.toISOString(), end: endDT.toISOString()}});
-            setProps({selectedTimeInterval: {start: startDT.toISOString(), end: endDT.toISOString()}})
+            setProps({
+                selectedTimeInterval: {
+                    start: startDT.toISOString(),
+                    end: endDT.toISOString(),
+                    timezoneOffset: startDT.getTimezoneOffset()
+                }
+            })
         } else {
-            if(runNumber && runPeriod) {
+            if (runNumber && runPeriod) {
                 // console.log({selectedRun: {number: Number(runNumber), period: Number(runPeriod)}});
                 setProps({selectedRun: {number: Number(runNumber), period: Number(runPeriod)}})
             }
@@ -77,7 +82,7 @@ export default function RunSelector(props) {
                 }}>
             </CardHeader>
             <Typography component="div" style={
-                { justifyContent: 'center', display: "grid"}}>
+                {justifyContent: 'center', display: "grid"}}>
                 <Grid component="label" container alignItems="center" spacing={1} alignContent={'center'}>
                     <Grid item>Run</Grid>
                     <Grid item>
@@ -87,8 +92,8 @@ export default function RunSelector(props) {
                 </Grid>
             </Typography>
             <CardContent style={
-                { justifyContent: 'center', display: "grid", gridRowGap: "10px"}}>
-                {timeChecked?
+                {justifyContent: 'center', display: "grid", gridRowGap: "10px"}}>
+                {timeChecked ?
                     <>
                         <MuiPickersUtilsProvider utils={DateFnsUtilsCustom}>
                             <DateTimePicker
@@ -129,17 +134,18 @@ export default function RunSelector(props) {
                             </Select>
                         </FormControl>
                         <FormControl variant="outlined" style={{minWidth: 230, marginTop: 10}}>
-                            <InputLabel id="run-number-label">Run Number {runNumberErr? "(not found)": ""}</InputLabel>
-                            <Input type="number"  placeholder={availableNumbers.length?
+                            <InputLabel id="run-number-label">Run
+                                Number {runNumberErr ? "(not found)" : ""}</InputLabel>
+                            <Input type="number" placeholder={availableNumbers.length ?
                                 `${_.min(availableNumbers)}...${_.max(availableNumbers)}` : ''}
                                    value={runNumber} onChange={
-                                       e => {
-                                           let val = e.target.value
-                                           setRunNumber(val)
-                                           setRunNumberErr(
-                                               val !== "" &&  !(availableNumbers.includes(Number(val))))
-                                       }
-                                   }
+                                e => {
+                                    let val = e.target.value
+                                    setRunNumber(val)
+                                    setRunNumberErr(
+                                        val !== "" && !(availableNumbers.includes(Number(val))))
+                                }
+                            }
                                    error={runNumberErr}
                             />
                         </FormControl>
@@ -151,12 +157,10 @@ export default function RunSelector(props) {
 }
 
 RunSelector.defaultProps = {
-
     selectedTimeInterval: null
 };
 
 RunSelector.propTypes = {
-
     /**
      * The ID used to identify this component in Dash callbacks.
      */
@@ -165,12 +169,14 @@ RunSelector.propTypes = {
     availableRuns: PropTypes.arrayOf(
         PropTypes.shape({
             period: PropTypes.number,
-            numbers: PropTypes.arrayOf(PropTypes.number)})
+            numbers: PropTypes.arrayOf(PropTypes.number)
+        })
     ).isRequired,
 
     selectedRun: PropTypes.shape({
-        number: PropTypes.number,
-        period: PropTypes.number}
+            number: PropTypes.number,
+            period: PropTypes.number
+        }
     ),
 
     selectedTimeInterval: PropTypes.shape({

@@ -165,11 +165,15 @@ def draw_group(n_clicks, selected_time_interval, selected_param) -> go.Figure:
             height=600,
         ))
 
-    start_dt = prepare_datetime(selected_time_interval["start"])
-    end_dt = prepare_datetime(selected_time_interval["end"])
+    offset_min = 0
+    if selected_time_interval is not None:
+        offset_min = int(selected_time_interval.get("timezoneOffset") or 0)
 
-    print(selected_time_interval)
-    print(start_dt, end_dt)
+    start_dt = prepare_datetime(selected_time_interval["start"], offset_min)
+    end_dt = prepare_datetime(selected_time_interval["end"], offset_min)
+
+    # print(selected_time_interval)
+    # print(start_dt, end_dt)
 
     domain = selected_param["domain"]
     family = selected_param["family"]
