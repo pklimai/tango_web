@@ -7,13 +7,14 @@ app = dash.Dash(__name__)
 
 app.layout = html.Div([
     nica_dash_components.RunSelector(id="input", availableRuns=[
-    {
-     "number": 1,
-     "periods": [1,2,3]
-    }, {
-     "number": 2,
-     "periods": [1,2,3]
-    }]),
+        {
+            "period": 1,
+            "numbers": [1, 2, 3]
+        },
+        {
+            "period": 2,
+            "numbers": [1, 2, 3]
+        }]),
     html.Div(id='output')
 ])
 
