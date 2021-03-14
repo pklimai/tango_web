@@ -93,7 +93,7 @@ def make_layout():
                                     html.H6(
                                         id="graph-title",
                                         children="Graph",
-                                        style={"text-align": "center"}
+                                        style={"textAlign": "center"}
                                     ),
                                     dcc.Graph(
                                         id="live-update-graph",

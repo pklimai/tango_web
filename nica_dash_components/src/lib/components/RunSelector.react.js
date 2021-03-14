@@ -97,14 +97,14 @@ export default function RunSelector(props) {
                     <>
                         <MuiPickersUtilsProvider utils={DateFnsUtilsCustom}>
                             <DateTimePicker
-                                label="Start Date"
+                                label="Start Time"
                                 ampm={false}
                                 inputVariant="outlined"
                                 value={startDT}
                                 onChange={setStartDT}
                             />
                             <DateTimePicker
-                                label="End Date"
+                                label="End Time"
                                 ampm={false}
                                 inputVariant="outlined"
                                 value={endDT}

@@ -158,7 +158,7 @@ def get_values(
             table_name,
             shorten_dt(start),
             shorten_dt(end), att_conf_id)
-        print(sql)
+        # print(sql)
         return {0: engine.execute(sql).fetchall()}
     elif 'array' in data_type.data_type:
         sql = """
@@ -169,7 +169,7 @@ def get_values(
             table_name,
             shorten_dt(start),
             shorten_dt(end), att_conf_id)
-        print(sql)
+        # print(sql)
 
         data = engine.execute(sql).fetchall()
 
