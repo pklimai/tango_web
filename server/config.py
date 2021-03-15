@@ -6,8 +6,12 @@ HOST = "0.0.0.0"
 PORT = 8050
 DEBUG = False
 
-HDBPP_CONNECTION = "mysql+pymysql://user:user_pass@localhost/hdbpp"
-BMN_CONNECTION = "postgresql://user:user_pass@localhost/bmn_db"
+BMN_CONNECTION = "postgresql://db_reader:reader_pass@nc13.jinr.ru/bmn_db"
+HDBPP_CONNECTION = "mysql+pymysql://tango:tangompd@10.18.11.66/hdbpp"
+
+# Use for lab testing
+# HDBPP_CONNECTION = "mysql+pymysql://user:user_pass@localhost/hdbpp"
+# BMN_CONNECTION = "postgresql://user:user_pass@localhost/bmn_db"
 
 ALIASES = [
     {
