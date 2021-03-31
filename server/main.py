@@ -193,7 +193,7 @@ def draw_group(n_clicks, selected_time_interval, selected_param) -> go.Figure:
             data += [go.Scatter(
                 x=[entry[0] for entry in graph_data],
                 y=[entry[1] for entry in graph_data],
-                name='{}:{}:{}'.format(attr[0], attr[1], graph_idx),
+                name='{}:{}'.format(name, graph_idx),
                 mode='lines + markers')]
 
     return go.Figure(
