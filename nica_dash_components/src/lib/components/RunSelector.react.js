@@ -30,7 +30,8 @@ class DateFnsUtilsCustom extends DateFnsUtils {
  * @constructor
  */
 export default function RunSelector(props) {
-    const {id, setProps, availableRuns, selectedTimeInterval, selectedRun, style} = props;
+    // timeCheckedProperty essentially stores the same value as timeChecked state - we need it in Dash
+    const {id, setProps, availableRuns, selectedTimeInterval, selectedRun, style, timeCheckedProperty} = props;
 
     const [timeChecked, setTimeChecked] = React.useState(false)
     const [runNumber, setRunNumber] = React.useState("")
@@ -86,7 +87,10 @@ export default function RunSelector(props) {
                 <Grid component="label" container alignItems="center" spacing={1} alignContent={'center'}>
                     <Grid item>Run</Grid>
                     <Grid item>
-                        <Switch checked={timeChecked} onChange={e => setTimeChecked(e.target.checked)}/>
+                        <Switch checked={timeChecked} onChange={e => {
+                            setTimeChecked(e.target.checked)
+                            setProps({ timeCheckedProperty: e.target.checked })
+                        }}/>
                     </Grid>
                     <Grid item>Time</Grid>
                 </Grid>
@@ -157,7 +161,8 @@ export default function RunSelector(props) {
 }
 
 RunSelector.defaultProps = {
-    selectedTimeInterval: null
+    selectedTimeInterval: null,
+    timeCheckedProperty: false
 };
 
 RunSelector.propTypes = {
@@ -185,6 +190,8 @@ RunSelector.propTypes = {
     }),
 
     style: PropTypes.object,
+
+    timeCheckedProperty: PropTypes.bool,
 
     /**
      * Dash-assigned callback that should be called to report property changes

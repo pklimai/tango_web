@@ -138,11 +138,13 @@ def set_graph_title(n_clicks, selected_param) -> str:
 
 @app.callback(Output('button-show', 'disabled'),
               [Input('run-selector', 'selectedTimeInterval'),
+               Input('run-selector', 'selectedRun'),
                Input('param-selector', 'selectedParam')])
-def enable_show_button(selected_time_interval, selected_param):
+def enable_show_button(selected_time_interval, selected_run, selected_param):
     # return (not selected_param) or (not selected_time_interval)
     # print(f"In enable_show_button: {selected_param} {selected_time_interval}")
     if (not selected_time_interval) or not selected_param:
+    # if not selected_param:
         return True
     if (selected_param.get("domain") == "" or
             selected_param.get("family") == "" or
@@ -155,9 +157,17 @@ def enable_show_button(selected_time_interval, selected_param):
 @app.callback(Output('live-update-graph', 'figure'),
               [Input('button-show', 'n_clicks')],
               (State('run-selector', 'selectedTimeInterval'),
-               State('param-selector', 'selectedParam'),))
-def draw_group(n_clicks, selected_time_interval, selected_param) -> go.Figure:
-    # print(json.dumps(event))
+               State('run-selector', 'selectedRun'),
+               State('param-selector', 'selectedParam'),
+               State('run-selector', 'timeCheckedProperty')))
+def draw_group(n_clicks, selected_time_interval, selected_run, selected_param, time_checked) -> go.Figure:
+    # Override time interval if there is a run selected and slider is on Run selection
+    print(time_checked)
+    if time_checked == False:
+        if selected_run:
+            run = _get_run(selected_run['period'], selected_run['number'])
+            if run:
+                selected_time_interval = dict(start=str(run.start_datetime), end=str(run.end_datetime))
 
     if n_clicks == 0 or (not selected_param) or (not selected_time_interval):
         return go.Figure(layout=go.Layout(
