@@ -31,7 +31,7 @@ class DateFnsUtilsCustom extends DateFnsUtils {
  */
 export default function RunSelector(props) {
     // timeCheckedProperty essentially stores the same value as timeChecked state - we need it in Dash
-    const {id, setProps, availableRuns, selectedTimeInterval, selectedRun, style, timeCheckedProperty} = props;
+    const {id, setProps, availableRuns, selectedTimeInterval, selectedRun, style, timeCheckedProperty, wrongRunProperty} = props;
 
     const [timeChecked, setTimeChecked] = React.useState(false)
     const [runNumber, setRunNumber] = React.useState("")
@@ -155,8 +155,9 @@ export default function RunSelector(props) {
                                 e => {
                                     let val = e.target.value
                                     setRunNumber(val)
-                                    setRunNumberErr(
-                                        val !== "" && !(availableNumbers.includes(Number(val))))
+                                    let isRunNumberError = (val !== "") && ( !(availableNumbers.includes(Number(val))) )
+                                    setRunNumberErr(isRunNumberError)
+                                    setProps({ wrongRunProperty : isRunNumberError })
                                     // setProps({selectedRun: {number: Number(val), period: Number(runPeriod)}})
                                 }
                             }
@@ -172,7 +173,8 @@ export default function RunSelector(props) {
 
 RunSelector.defaultProps = {
     selectedTimeInterval: null,
-    timeCheckedProperty: false
+    timeCheckedProperty: false,
+    wrongRunProperty: false
 };
 
 RunSelector.propTypes = {
@@ -202,6 +204,8 @@ RunSelector.propTypes = {
     style: PropTypes.object,
 
     timeCheckedProperty: PropTypes.bool,
+
+    wrongRunProperty: PropTypes.bool,
 
     /**
      * Dash-assigned callback that should be called to report property changes
