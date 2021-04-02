@@ -66,10 +66,19 @@ export default function RunSelector(props) {
                 }
             })
         } else {
-            if (runNumber && runPeriod) {
+             if (runNumber && runPeriod) {
                 // console.log({selectedRun: {number: Number(runNumber), period: Number(runPeriod)}});
                 setProps({selectedRun: {number: Number(runNumber), period: Number(runPeriod)}})
-            }
+             }
+             else if (runNumber && runPeriod==="") {
+                 setProps({selectedRun: { number: Number(runNumber) }})
+             }
+             else if (runNumber==="" && runPeriod) {
+                 setProps({selectedRun: { period: Number(runPeriod) }})
+             }
+             else {
+                 setProps({selectedRun: null })
+             }
         }
     }, [runNumber, runPeriod, startDT, endDT])
 
@@ -89,7 +98,7 @@ export default function RunSelector(props) {
                     <Grid item>
                         <Switch checked={timeChecked} onChange={e => {
                             setTimeChecked(e.target.checked)
-                            setProps({ timeCheckedProperty: e.target.checked })
+                            setProps({timeCheckedProperty: e.target.checked})
                         }}/>
                     </Grid>
                     <Grid item>Time</Grid>
@@ -148,6 +157,7 @@ export default function RunSelector(props) {
                                     setRunNumber(val)
                                     setRunNumberErr(
                                         val !== "" && !(availableNumbers.includes(Number(val))))
+                                    // setProps({selectedRun: {number: Number(val), period: Number(runPeriod)}})
                                 }
                             }
                                    error={runNumberErr}
