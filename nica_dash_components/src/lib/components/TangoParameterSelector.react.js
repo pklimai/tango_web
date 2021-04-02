@@ -18,7 +18,7 @@ import Typography from '@material-ui/core/Typography';
  * @constructor
  */
 export default function TangoParameterSelector(props) {
-    const {id, setProps, availableParams, selectedParam, style, dictionary} = props;
+    const {id, setProps, availableParams, selectedParam, style, dictionary, isCustomProperty} = props;
 
     const [domain, setDomain] = React.useState("")
     const [family, setFamily] = React.useState("")
@@ -43,11 +43,13 @@ export default function TangoParameterSelector(props) {
             setFamily("")
             setMember("")
             setName("")
+            setProps({selectedParam: {domain: "", family: "", member: "", name: ""}})
         } else {
             setDomain(selectedParam.domain)
             setFamily(selectedParam.family)
             setMember(selectedParam.member)
             setName(selectedParam.name)
+            setProps({selectedParam: {domain, family, member, name}})
         }
 
     }, [selectedParam,])
@@ -67,12 +69,14 @@ export default function TangoParameterSelector(props) {
                             checked={isCustom}
                             onChange={e => {
                                 setIsCustom(e.target.checked)
+                                setProps({ isCustomProperty: e.target.checked })
                                 if (e.target.checked === false) {
                                     setDomain("")
                                     setFamily("")
                                     setMember("")
                                     setName("")
                                     setOption(undefined)
+                                    setProps({selectedParam: {domain: "", family: "", member: "", name: ""}})
                                 }
                             }}
                         />
@@ -214,6 +218,7 @@ export default function TangoParameterSelector(props) {
 }
 
 TangoParameterSelector.defaultProps = {
+    isCustomProperty: false
 };
 
 const TangoParam = PropTypes.shape({
@@ -246,6 +251,8 @@ TangoParameterSelector.propTypes = {
     selectedParam: TangoParam,
 
     style: PropTypes.object,
+
+    isCustomProperty: PropTypes.bool,
 
     /**
      * Dash-assigned callback that should be called to report property changes

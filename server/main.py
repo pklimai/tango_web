@@ -133,6 +133,9 @@ def set_graph_title(n_clicks, selected_param) -> str:
     member = selected_param["member"]
     name = selected_param["name"]
 
+    if domain == "" or family == "" or member == "" or name == "":
+        return "Graph"
+
     return "{}/{}/{}/{}".format(domain, family, member, name)
 
 
@@ -140,14 +143,17 @@ def set_graph_title(n_clicks, selected_param) -> str:
               [Input('run-selector', 'selectedTimeInterval'),
                Input('run-selector', 'selectedRun'),
                Input('run-selector', 'timeCheckedProperty'),
-               Input('param-selector', 'selectedParam')])
-def enable_show_button(selected_time_interval, selected_run, time_checked_property, selected_param):
+               Input('param-selector', 'selectedParam'),
+               Input('param-selector', 'isCustomProperty')])
+def enable_show_button(selected_time_interval, selected_run, time_checked_property, selected_param, is_custom_property):
     # return (not selected_param) or (not selected_time_interval)
-    # print(f"In enable_show_button: {selected_param} {selected_time_interval}")
+    # print(f"enable_show_button: {selected_param} {selected_time_interval}")
+    # print(f"enable_show_button: selected_param={selected_param}")
+    # print(f"enable_show_button: selected_run={selected_run}")
+
     if (not selected_time_interval) or not selected_param:
         return True
 
-    print(f"enable_show_button: selected_run={selected_run}")
     if time_checked_property in [False, None]:
         if selected_run is None:
             return True
@@ -159,6 +165,7 @@ def enable_show_button(selected_time_interval, selected_run, time_checked_proper
             selected_param.get("member") == "" or
             selected_param.get("name") == ""):
         return True
+
     return False
 
 
