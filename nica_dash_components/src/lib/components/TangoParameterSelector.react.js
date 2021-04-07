@@ -34,7 +34,7 @@ export default function TangoParameterSelector(props) {
 
     const availableOptions = dictionary? dictionary.map(item => item.name) : []
 
-    const [isCustom, setIsCustom] = React.useState(true)
+    const [isCustom, setIsCustom] = React.useState(false)
 
     useEffect(() => {
 

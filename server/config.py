@@ -15,11 +15,19 @@ HDBPP_CONNECTION = "mysql+pymysql://tango:tangompd@10.18.11.66/hdbpp"
 
 ALIASES = [
     {
-        'name': "gem_hv",
+        'name': 'hall sensor',
+        'param': dict(domain="mpd", family="bmn", member="adc_bman_beam", name="ch0")
+    },
+    {
+        'name': 'gem trip',
+        'param': dict(domain="mpd", family="gem", member="wiener_hv", name="trip")
+    },
+    {
+        'name': "gem u",
         'param': dict(domain="mpd", family="gem", member="wiener_hv", name="u")
     },
     {
-        'name': "batt_t",
+        'name': "battery t",
         'param': dict(domain="bmn", family="daq", member="ups", name="batterytemperature")
     },
 ]
