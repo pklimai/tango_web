@@ -9,15 +9,15 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 RUN yum install epel-release -y
-RUN yum install python36 which -y
+RUN yum install python39 which -y
 #RUN yum install npm -y
 
 RUN pip3 install pipenv
 
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash && \
     source ~/.bashrc && \
-    nvm install stable && \
-    nvm use stable
+    nvm install 16 && \
+    nvm use 16
 
 RUN mkdir /root/bmn-visualisation
 COPY ./Pipfile /root/bmn-visualisation
