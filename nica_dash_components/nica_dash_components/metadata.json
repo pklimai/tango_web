@@ -1,6 +1,6 @@
 {
   "src/lib/components/RunSelector.react.js": {
-    "description": "@param  {RunSelector.propTypes} props\n@returns {JSX.Element}\n@constructor",
+    "description": "@param  {RunSelector.propTypes} props\r\n@returns {JSX.Element}\r\n@constructor",
     "displayName": "RunSelector",
     "methods": [],
     "props": {
@@ -79,17 +79,39 @@
         "required": false,
         "description": ""
       },
+      "timeCheckedProperty": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "wrongRunProperty": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
       "setProps": {
         "type": {
           "name": "func"
         },
         "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
       }
     }
   },
   "src/lib/components/TangoParameterSelector.react.js": {
-    "description": "@param  {TangoParameterSelector.propTypes} props\n@returns {JSX.Element}\n@constructor",
+    "description": "@param  {TangoParameterSelector.propTypes} props\r\n@returns {JSX.Element}\r\n@constructor",
     "displayName": "TangoParameterSelector",
     "methods": [],
     "props": {
@@ -155,12 +177,23 @@
         "required": false,
         "description": ""
       },
+      "isCustomProperty": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
       "setProps": {
         "type": {
           "name": "func"
         },
         "required": false,
-        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
       }
     }
   }

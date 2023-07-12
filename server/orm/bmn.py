@@ -58,7 +58,7 @@ class Run(db.Model):
 
     period_number = db.Column(db.ForeignKey('run_period.period_number', onupdate='CASCADE'), primary_key=True, nullable=False)
     run_number = db.Column(db.Integer, primary_key=True, nullable=False)
-    file_path = db.Column(db.String(200), nullable=False, unique=True)
+    # file_path = db.Column(db.String(200), nullable=False, unique=True)
     beam_particle = db.Column(db.String(10), nullable=False, server_default=db.FetchedValue())
     target_particle = db.Column(db.String(10))
     energy = db.Column(db.Float(53))
@@ -66,7 +66,7 @@ class Run(db.Model):
     end_datetime = db.Column(db.DateTime)
     event_count = db.Column(db.Integer)
     field_voltage = db.Column(db.Float(53))
-    file_size = db.Column(db.Float(53))
+    # file_size = db.Column(db.Float(53))
     geometry_id = db.Column(db.ForeignKey('run_geometry.geometry_id', onupdate='CASCADE'))
 
     geometry = db.relationship('RunGeometry', primaryjoin='Run.geometry_id == RunGeometry.geometry_id', backref='runs')

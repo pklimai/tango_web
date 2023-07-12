@@ -1,6 +1,6 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-export(RunSelector)
-export(TangoParameterSelector)
-export(tangoParameterSelector)
+export(''RunSelector)
+export(''TangoParameterSelector)
 export(runSelector)
+export(tangoParameterSelector)
