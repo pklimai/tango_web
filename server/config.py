@@ -7,7 +7,8 @@ PORT = 8050
 DEBUG = False
 
 BMN_CONNECTION = "postgresql://db_reader:reader_pass@nc13.jinr.ru/bmn_db"
-HDBPP_CONNECTION = "postgresql://grafana:grafana@10.18.86.81:5000/hdb"
+HDBPP_CONNECTION = "mysql+pymysql://tango:tangompd@10.18.11.66/hdbpp"
+#HDBPP_CONNECTION = "postgresql://grafana:grafana@10.18.86.81:5000/hdb"
 
 # Use for lab testing
 # HDBPP_CONNECTION = "mysql+pymysql://user:user_pass@localhost/hdbpp"
