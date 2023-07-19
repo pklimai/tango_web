@@ -9,7 +9,7 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 # RUN yum install epel-release -y
-RUN yum install python39 which -y
+RUN yum install python39 python39-pip which -y
 # RUN yum install npm -y
 
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash && \
@@ -20,18 +20,23 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | b
 RUN mkdir /root/bmn-visualisation
 COPY ./server /root/bmn-visualisation/server
 COPY ./nica_dash_components /root/bmn-visualisation/nica_dash_components
+COPY ./requirements.txt /root/bmn-visualisation/
 
 RUN cd /root/bmn-visualisation && \
-    pip install -r requirements.txt
+    pip3 install -r requirements.txt && \
+    pip3 install wheel
 
 RUN cd /root/bmn-visualisation/nica_dash_components && \
-    source ~/.bashrc && \
+    source ~/.bashrc &&\
     npm install && \
-    npm run build && \
-    python setup.py sdist bdist_wheel
+    npm run build
 
-RUN pip install /root/bmn-visualisation/nica_dash_components/dist/nica_dash_components-0.0.1-py3-none-any.whl
+RUN cd /root/bmn-visualisation/nica_dash_components && \
+    source ~/.bashrc &&\
+    python3 setup.py sdist bdist_wheel
+
+RUN pip3 install /root/bmn-visualisation/nica_dash_components/dist/nica_dash_components-0.0.1-py3-none-any.whl
 
 WORKDIR /root/bmn-visualisation
 
-CMD python -m server.main
+CMD python3 -m server.main

@@ -97,3 +97,27 @@ This section describes how to run WebUI server in CentOS 7 by Docker container e
    flask-sqlacodegen --bind-key=hdbpp --flask mysql+pymysql://user:user_pass@localhost/hdbpp > ./server/orm/hdbpp.py
    flask-sqlacodegen --bind-key=bmn --flask postgresql://user:user_pass@localhost/bmn_db > ./server/orm/bmn.py
     ```
+
+
+## Steps for local compilation (see also Dockerfile)
+
+Run from your activated virtual environment, e.g. PyCharm terminal:
+```
+cd .\nica_dash_components\ 
+npm install
+npm run build
+
+pip.exe install wheel
+python.exe setup.py sdist bdist_wheel
+
+cd .\nica_dash_components\dist\                          
+pip install .\nica_dash_components-0.0.1-py3-none-any.whl
+```
+(now `import nica_dash_components` works and GUI becomes available)
+
+Also
+```
+pip install psycopg2
+```
+is required on Windows but breaks things in Linux (Docker)...
+
