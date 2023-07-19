@@ -10,9 +10,7 @@ ENV LC_ALL en_US.UTF-8
 
 # RUN yum install epel-release -y
 RUN yum install python39 which -y
-#RUN yum install npm -y
-
-RUN pip3 install pipenv
+# RUN yum install npm -y
 
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash && \
     source ~/.bashrc && \
@@ -20,26 +18,20 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | b
     nvm use 16
 
 RUN mkdir /root/bmn-visualisation
-COPY ./Pipfile /root/bmn-visualisation
-COPY ./Pipfile.lock /root/bmn-visualisation
 COPY ./server /root/bmn-visualisation/server
-
 COPY ./nica_dash_components /root/bmn-visualisation/nica_dash_components
 
-RUN cd /root/bmn-visualisation/nica_dash_components && \
-    virtualenv venv && \
-    . venv/bin/activate && \
+RUN cd /root/bmn-visualisation && \
     pip install -r requirements.txt
 
 RUN cd /root/bmn-visualisation/nica_dash_components && \
-    . venv/bin/activate && \
     source ~/.bashrc && \
     npm install && \
-    npm run build
+    npm run build && \
+    python setup.py sdist bdist_wheel
 
-RUN cd /root/bmn-visualisation && \
-    pipenv install
+RUN pip install /root/bmn-visualisation/nica_dash_components/dist/nica_dash_components-0.0.1-py3-none-any.whl
 
 WORKDIR /root/bmn-visualisation
 
-CMD /usr/local/bin/pipenv run python -m server.main
+CMD python -m server.main
