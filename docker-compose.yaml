@@ -1,9 +1,10 @@
 version: '3.1'
 
 services:
-
   tango-web:
     build:
       context: .
+    container_name: tango-web
+    restart: always
     ports:
       - 8050:8050
