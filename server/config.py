@@ -6,7 +6,7 @@ HOST = "0.0.0.0"
 PORT = 8050
 DEBUG = False
 
-BMN_CONNECTION = "postgresql://db_reader:reader_pass@nc13.jinr.ru/bmn_db"
+BMN_CONNECTION = "postgresql://db_reader:reader_pass@bmn-unidb.jinr.ru/uni_db"
 HDBPP_CONNECTION = "mysql+pymysql://tango:tangompd@10.18.11.66/hdbpp"
 #HDBPP_CONNECTION = "postgresql://grafana:grafana@10.18.86.81:5000/hdb"
 
