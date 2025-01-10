@@ -3,7 +3,7 @@ import dash_bootstrap_components as dbc
 from flask_caching import Cache
 from flask_sqlalchemy import SQLAlchemy
 
-from server.config import HDBPP_CONNECTION, BMN_CONNECTION
+from server.config import BMN_UNICONDA_CONNECTION
 
 __external_stylesheets = [
     dbc.themes.BOOTSTRAP
@@ -12,8 +12,7 @@ __external_stylesheets = [
 app = dash.Dash(__name__, external_stylesheets=__external_stylesheets)
 
 app.server.config['SQLALCHEMY_BINDS'] = {
-    "hdbpp": HDBPP_CONNECTION,
-    "bmn": BMN_CONNECTION
+    "bmn": BMN_UNICONDA_CONNECTION
 }
 app.server.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 

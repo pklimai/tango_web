@@ -15,12 +15,12 @@ from dash import html
 import nica_dash_components
 #from nica_dash_components import nica_dash_components
 
-from server.utils import _get_available_runs
+from server.utils import get_available_runs, get_values_from_api
 
 from server import app
 from server.config import DEBUG, PORT, HOST, ALIASES
 from server.typings import ScatterPlots
-from server.utils import _get_run, _get_attrs_for_params, get_values, _get_available_attrs, prepare_datetime
+from server.utils import get_run, _get_available_attrs, prepare_datetime
 
 _container_style = {
     'background': "#e0e0e0",
@@ -67,7 +67,7 @@ def make_layout():
                                     id="run-selector",
                                     style=_selectors_style,
                                     # selectedRun=dict(period=7, number=5158),
-                                    availableRuns=_get_available_runs()
+                                    availableRuns=get_available_runs()
                                 )
                             )),
                             dbc.Row(children=dbc.Col(
@@ -119,7 +119,7 @@ app.layout = make_layout()
               (State('run-selector', 'selectedTimeInterval'),))
 def update_timerange(selected_run, selected_time_interval):
     if selected_run:
-        run = _get_run(selected_run.get('period'), selected_run.get('number'))
+        run = get_run(selected_run.get('period'), selected_run.get('number'))
         if not run:
             return selected_time_interval
         return dict(start=run.start_datetime, end=run.end_datetime)
@@ -188,7 +188,7 @@ def draw_group(n_clicks, selected_time_interval, selected_run, selected_param, t
     # Override time interval if there is a run selected and slider is on Run selection
     if time_checked == False:
         if selected_run:
-            run = _get_run(selected_run['period'], selected_run['number'])
+            run = get_run(selected_run['period'], selected_run['number'])
             if run:
                 selected_time_interval = dict(start=str(run.start_datetime), end=str(run.end_datetime))
 
@@ -214,21 +214,10 @@ def draw_group(n_clicks, selected_time_interval, selected_run, selected_param, t
     member = selected_param["member"]
     name = selected_param["name"]
 
-    attrs = _get_attrs_for_params(domain, family, member, name)
+    graph_data = get_values_from_api(domain, family, member, name, start_dt, end_dt)
+    # print(graph_data)
 
-    data: ScatterPlots = []
-
-    for attr in attrs:
-        # print(f"Getting attr {attr}...")
-        graphs_data = get_values(attr[0], attr[1], start_dt, end_dt)
-        # print("   ...done")
-        for graph_idx in graphs_data:
-            graph_data = graphs_data[graph_idx]
-            data += [go.Scatter(
-                x=[entry[0] for entry in graph_data],
-                y=[entry[1] for entry in graph_data],
-                name='{}:{}'.format(name, graph_idx),
-                mode='lines + markers')]
+    data = [go.Scatter(x=graph_data['datetimes'], y=graph_data['values'], mode='lines + markers')]
 
     return go.Figure(
         data=data,

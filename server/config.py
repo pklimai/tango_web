@@ -6,26 +6,25 @@ HOST = "0.0.0.0"
 PORT = 8050
 DEBUG = False
 
-BMN_CONNECTION = "postgresql://db_reader:reader_pass@bmn-unidb.jinr.ru/uni_db"
-HDBPP_CONNECTION = "mysql+pymysql://tango:tangompd@10.18.11.66/hdbpp"
-#HDBPP_CONNECTION = "postgresql://grafana:grafana@10.18.86.81:5000/hdb"
+BMN_UNICONDA_CONNECTION = "postgresql://db_reader:reader_pass@bmn-unidb.jinr.ru/uni_db"
+TANGO_BASE_API_URL = "http://10.220.16.81:8000"
 
 # Use for lab testing
-# HDBPP_CONNECTION = "mysql+pymysql://user:user_pass@localhost/hdbpp"
-# BMN_CONNECTION = "postgresql://user:user_pass@localhost/bmn_db"
+# BMN_UNICONDA_CONNECTION = "postgresql://user:user_pass@localhost/bmn_db"
+# TANGO_BASE_API_URL = "http://127.0.0.1:8000"
 
 ALIASES = [
     {
-        'name': 'hall sensor',
-        'param': dict(domain="mpd", family="bmn", member="adc_bman_beam", name="ch1")
+        'name': "event number",
+        'param': dict(domain="daq", family="system", member="status", name="ev_number")
     },
     {
-        'name': 'gem trip',
-        'param': dict(domain="mpd", family="gem", member="wiener_hv", name="trip")
+        'name': "temperature pir230e_1",
+        'param': dict(domain="bmn", family="env", member="pir230e_1", name="temperature")
     },
     {
-        'name': "gem u",
-        'param': dict(domain="mpd", family="gem", member="wiener_hv", name="u")
+        'name': "temperature pir230e_3",
+        'param': dict(domain="bmn", family="env", member="pir230e_3", name="temperature")
     },
 ]
 
@@ -33,4 +32,5 @@ try:
     from .config_local import *
 except ModuleNotFoundError:
     pass
-
+except ImportError:
+    pass
