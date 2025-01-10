@@ -1,6 +1,6 @@
 import requests
 
-from config import TANGO_BASE_API_URL
+from .config import TANGO_BASE_API_URL
 
 class TangoApiReader:
 
