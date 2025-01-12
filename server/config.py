@@ -7,11 +7,11 @@ PORT = 8050
 DEBUG = False
 
 BMN_UNICONDA_CONNECTION = "postgresql://db_reader:reader_pass@bmn-unidb.jinr.ru/uni_db"
-TANGO_BASE_API_URL = "http://10.220.16.81:8000"
+#TANGO_BASE_API_URL = "http://10.220.16.81:8000/tango_api/v1"
 
 # Use for lab testing
 # BMN_UNICONDA_CONNECTION = "postgresql://user:user_pass@localhost/bmn_db"
-# TANGO_BASE_API_URL = "http://127.0.0.1:8000"
+TANGO_BASE_API_URL = "http://127.0.0.1:8000/tango_api/v1"
 
 ALIASES = [
     {

@@ -23,5 +23,5 @@ class TangoApiReader:
     @staticmethod
     # @utils.monitor_results
     def get_graph_data(domain, family, member, name, start_datetime, end_datetime):
-        return requests.get(f"{TANGO_BASE_API_URL}/graphdata?domain={domain}&family={family}&member={member}&name={name}&start_datetime={start_datetime}&end_datetime={end_datetime}").json()
+        return requests.get(f"{TANGO_BASE_API_URL}/attdata?domain={domain}&family={family}&member={member}&name={name}&start_datetime={start_datetime}&end_datetime={end_datetime}").json()
 
