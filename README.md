@@ -28,11 +28,10 @@ Note how parameter aliases are specified using `ALIASES` dictionary.
 # build container
 docker build -t bmn-visualization .
 # run container
-docker run --rm -it \
--v $PWD/server/config_local.py:/root/bmn-visualisation/server/config_local.py \
--p 8050:8050 \
-bmn-visualization
+docker run --rm -it -d -v $PWD/config_local.py:/root/bmn-visualisation/server/config_local.py:Z -p 8050:8050 \
+  --name bmn-visualization bmn-visualization
 ```
+(note the Z modifier)
 
 
 ## Develop
